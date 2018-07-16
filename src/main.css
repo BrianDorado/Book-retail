@@ -30,3 +30,8 @@ html {
         cursor: pointer; }
       .nav-component .nav-right div:first-child span:hover {
         border-color: #fff; }
+
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; }
