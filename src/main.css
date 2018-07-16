@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css?family=Josefin+Sans");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box; }
+
+html {
+  font-family: Georgia,"Times New Roman",Times,serif; }
+
+.nav-component {
+  height: 121px;
+  font-family: 'Josefin Sans', sans-serif;
+  color: #fff;
+  display: flex; }
+  .nav-component .nav-left {
+    width: 200px;
+    background: #fff; }
+  .nav-component .nav-right {
+    background: #b94321;
+    flex: 1 1 auto;
+    padding: .8rem 1rem;
+    display: flex;
+    flex-direction: column; }
+    .nav-component .nav-right div:first-child {
+      align-self: flex-end; }
+      .nav-component .nav-right div:first-child span {
+        margin-left: .5rem;
+        border-bottom: 2px solid transparent;
+        transition: border .25s;
+        cursor: pointer; }
+      .nav-component .nav-right div:first-child span:hover {
+        border-color: #fff; }

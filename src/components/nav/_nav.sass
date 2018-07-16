@@ -1,0 +1,25 @@
+.nav-component
+    height: 121px
+    font-family: 'Josefin Sans', sans-serif
+    color: #fff
+    display: flex
+    .nav-left
+        width: 200px
+        background: #fff        
+    .nav-right
+        background: #b94321
+        flex: 1 1 auto
+        padding: .8rem 1rem
+        display: flex
+        flex-direction: column
+        div:first-child
+            align-self: flex-end
+            span
+                margin-left: .5rem
+                border-bottom: 2px solid transparent
+                transition: border .25s
+                cursor: pointer
+            span:hover
+                border-color: #fff
+        div:nth-child(2)
+            
