@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Tile from '../BookTiles/tile';
-import Image from '../../Media/Img/bottle-2022741_960_720.jpg';
+import Image from '../../assets/img/bottle-2022741_960_720.jpg';
 
 class Home extends Component {
   render() {

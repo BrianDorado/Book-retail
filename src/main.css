@@ -7,6 +7,10 @@
 html {
   font-family: Georgia,"Times New Roman",Times,serif; }
 
+a {
+  color: currentColor;
+  text-decoration: none; }
+
 .nav-component {
   height: 121px;
   font-family: 'Josefin Sans', sans-serif;
@@ -128,3 +132,8 @@ html {
   display: flex;
   flex-direction: column;
   min-height: 100vh; }
+
+.test-component {
+  height: 100%;
+  background: dodgerblue;
+  color: #eee; }
