@@ -211,7 +211,8 @@ a {
   margin-left: -150px;
   text-align: center;
   transition: all .33s ease-in-out;
-  z-index: 5; }
+  z-index: 5;
+  pointer-events: none; }
   .modal-component .modal-btn {
     padding: .4rem .8rem;
     border: 1px solid rgba(0, 0, 0, 0.4);
@@ -228,7 +229,8 @@ a {
     background: #eeeeee88; }
   .show-modal .modal-component {
     top: 80px;
-    opacity: 1; }
+    opacity: 1;
+    pointer-events: auto; }
 
 .opacity-component {
   position: absolute;
