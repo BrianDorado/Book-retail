@@ -12,21 +12,82 @@ html {
   font-family: 'Josefin Sans', sans-serif;
   color: #fff;
   display: flex; }
+  .nav-component i, .nav-component span {
+    cursor: pointer; }
   .nav-component .nav-left {
-    width: 200px;
-    background: #fff; }
+    width: 220px;
+    background: #fff;
+    color: #333;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    font-size: 2rem;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding: .5rem 0;
+    position: relative;
+    left: -220px;
+    width: 0;
+    transition: all .8s ease-in-out; }
+    .is-mounted .nav-component .nav-left {
+      padding: .5rem 1rem .5rem .5rem;
+      width: 220px;
+      left: 0; }
+    .nav-component .nav-left span {
+      cursor: default;
+      margin-left: .4rem; }
+    .nav-component .nav-left span.highlight {
+      background: dodgerblue;
+      color: #fff;
+      margin: 0;
+      padding-right: .4rem; }
   .nav-component .nav-right {
+    width: 100%;
     background: #b94321;
     flex: 1 1 auto;
     padding: .8rem 1rem;
     display: flex;
     flex-direction: column; }
-    .nav-component .nav-right div:first-child {
+    .nav-component .nav-right div.top-of-nav {
       align-self: flex-end; }
-      .nav-component .nav-right div:first-child span {
-        margin-left: .5rem;
-        border-bottom: 2px solid transparent;
+      .nav-component .nav-right div.top-of-nav span {
+        margin-right: 1rem;
+        border-bottom: 1px solid transparent;
         transition: border .25s;
+        cursor: pointer;
+        padding-bottom: .15rem; }
+        .nav-component .nav-right div.top-of-nav span:hover {
+          border-color: #fff; }
+        .nav-component .nav-right div.top-of-nav span:last-child {
+          margin: 0; }
+      .nav-component .nav-right div.top-of-nav i {
+        transition: opacity .25s;
+        opacity: 1;
+        margin-right: .4rem;
         cursor: pointer; }
-      .nav-component .nav-right div:first-child span:hover {
-        border-color: #fff; }
+      .nav-component .nav-right div.top-of-nav i:hover {
+        opacity: .3; }
+    .nav-component .nav-right div.bottom-of-nav {
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      font-size: 1.8rem; }
+      .nav-component .nav-right div.bottom-of-nav div span {
+        border-bottom: 2px solid transparent;
+        transition: border .25s; }
+      .nav-component .nav-right div.bottom-of-nav div span:hover {
+        border-color: currentColor; }
+      .nav-component .nav-right div.bottom-of-nav div:first-child {
+        text-align: left; }
+        .nav-component .nav-right div.bottom-of-nav div:first-child span {
+          margin-right: 1.5rem; }
+      .nav-component .nav-right div.bottom-of-nav div:nth-child(2) {
+        text-align: right; }
+        .nav-component .nav-right div.bottom-of-nav div:nth-child(2) i {
+          vertical-align: 3px;
+          margin-right: .5rem; }
+
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; }
