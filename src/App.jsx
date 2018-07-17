@@ -4,6 +4,12 @@ import Home from './components/Home/home'
 import routes from './routes';
 
 class App extends Component {
+
+  componentDidMount(){
+    setTimeout(function(){
+    document.body.classList.add('is-mounted')
+    },1000*.3)
+  }
   render() {
     return (
       <div className="App">
@@ -16,4 +22,3 @@ class App extends Component {
 }
 
 export default App;
-
