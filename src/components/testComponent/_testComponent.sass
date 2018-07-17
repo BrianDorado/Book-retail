@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed');
+$gold: #997e11
+.test-component
+    padding: 3rem 2rem
+    background: #fff
+    color: $gold
+    flex: auto
+    font-family: 'Barlow Semi Condensed', sans-serif
+    .grid-container
+        display: grid
+        grid-template-columns: repeat(3, 1fr)
+        grid-gap: 1rem
+        min-width: 730px
+        max-width: 800px
+        margin: 0 auto
+        position: relative
+        &::before
+            position: absolute
+            top: -30px
+            left: -16px
+            content: "Browse Books"
+            fotn-family: 'Barlow Semi Condensed', sans-serif
+            color: $gold
+
+    .book-thumbnail
+        height: 100px
+        display: flex
+        img
+            border: 1px solid #888
+            height: 100%
+            margin-right: 1rem
+            cursor: pointer
+        .buy-button
+            background: linear-gradient(lighten(green, 15%), green)
+            padding: .3rem .6rem
+            color: #fff
+            cursor: pointer
+            font-size: .8rem
+            display: inline-block
+        .book-title
+            color: salmon
+            font-family:  Georgia, 'Times New Roman', Times, serif
+        .author-name
+            color: #888
+            font-family: inherit
+            margin-bottom: .6rem

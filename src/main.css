@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Josefin+Sans");
+@import url("https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed");
 * {
   padding: 0;
   margin: 0;
@@ -6,6 +7,10 @@
 
 html {
   font-family: Georgia,"Times New Roman",Times,serif; }
+
+a {
+  color: currentColor;
+  text-decoration: none; }
 
 .nav-component {
   height: 121px;
@@ -87,50 +92,157 @@ html {
           vertical-align: 3px;
           margin-right: .5rem; }
 
-.new-title-header {
-  margin-left: 200px;
-  font-size: 3rem;
-  padding: 45px; }
-
-.new-title {
-  height: 300px;
-  display: flex; }
-
-.new-title-img {
-  max-height: 100%;
-  margin-left: 200px; }
-
-.new-title-info {
-  padding: 1rem; }
-
-.lower-section {
-  height: 90%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; }
-
-.new-title-description {
-  margin-top: 1rem; }
-
-.homepage-breakpoint {
-  width: 91vw;
-  height: 1vh;
-  margin: auto;
-  margin-top: 4vh;
-  opacity: .35;
-  background-color: tan; }
-
-.titles-library {
-  widht: 90vw;
-  margin: auto;
-  display: flex; }
-
-.library-header {
-  font-size: 2rem;
-  margin-left: 200px;
-  margin-top: 4vh; }
+.home-component {
+  flex: auto; }
+  .home-component .new-title-header {
+    margin-left: 200px;
+    font-size: 3rem;
+    padding: 45px; }
+  .home-component .new-title {
+    height: 300px;
+    display: flex; }
+  .home-component .new-title-img {
+    max-height: 100%;
+    margin-left: 200px; }
+  .home-component .new-title-info {
+    padding: 1rem; }
+  .home-component .lower-section {
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; }
+  .home-component .new-title-description {
+    margin-top: 1rem; }
+  .home-component .homepage-breakpoint {
+    width: 91vw;
+    height: 1vh;
+    margin: auto;
+    margin-top: 4vh;
+    opacity: .35;
+    background-color: tan; }
+  .home-component .titles-library {
+    width: 90vw;
+    margin: auto;
+    display: flex; }
+  .home-component .library-header {
+    font-size: 2rem;
+    margin-left: 200px;
+    margin-top: 4vh; }
 
 .App {
   display: flex;
   flex-direction: column;
-  height: 100vh; }
+  min-height: 100vh; }
+
+.test-component {
+  padding: 3rem 2rem;
+  background: #fff;
+  color: #997e11;
+  flex: auto;
+  font-family: 'Barlow Semi Condensed', sans-serif; }
+  .test-component .grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1rem;
+    min-width: 730px;
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative; }
+    .test-component .grid-container::before {
+      position: absolute;
+      top: -30px;
+      left: -16px;
+      content: "Browse Books";
+      fotn-family: 'Barlow Semi Condensed', sans-serif;
+      color: #997e11; }
+  .test-component .book-thumbnail {
+    height: 100px;
+    display: flex; }
+    .test-component .book-thumbnail img {
+      border: 1px solid #888;
+      height: 100%;
+      margin-right: 1rem;
+      cursor: pointer; }
+    .test-component .book-thumbnail .buy-button {
+      background: linear-gradient(#00cd00, green);
+      padding: .3rem .6rem;
+      color: #fff;
+      cursor: pointer;
+      font-size: .8rem;
+      display: inline-block; }
+    .test-component .book-thumbnail .book-title {
+      color: salmon;
+      font-family: Georgia, 'Times New Roman', Times, serif; }
+    .test-component .book-thumbnail .author-name {
+      color: #888;
+      font-family: inherit;
+      margin-bottom: .6rem; }
+
+.cart-component {
+  flex: auto;
+  padding: 1rem 3rem;
+  background: #fff;
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  color: #997e11; }
+  .cart-component a {
+    color: dodgerblue; }
+  .cart-component span.header-text {
+    display: block;
+    margin-bottom: 1rem; }
+  .cart-component .cart-view-container {
+    background: #eee;
+    padding: 3rem .5rem;
+    text-align: right;
+    margin-left: 80px;
+    border-radius: 3px; }
+
+.modal-component {
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  color: #997e11;
+  padding: 1rem;
+  background: #fff;
+  border: 2px solid #333;
+  border-radius: 4px;
+  position: absolute;
+  top: -20px;
+  opacity: 0;
+  width: 300px;
+  left: 50%;
+  margin-left: -150px;
+  text-align: center;
+  transition: all .33s ease-in-out;
+  z-index: 5;
+  pointer-events: none; }
+  .modal-component .modal-btn {
+    padding: .4rem .8rem;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    display: inline-block;
+    background: #eee;
+    transition: background .25s;
+    margin: 0 .5rem; }
+  .modal-component h3 {
+    margin-bottom: .4rem; }
+  .modal-component h6 {
+    margin-bottom: .8rem; }
+  .modal-component .modal-btn:hover {
+    background: #eeeeee88; }
+  .show-modal .modal-component {
+    top: 80px;
+    opacity: 1;
+    pointer-events: auto; }
+
+.opacity-component {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  opacity: 0;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.2);
+  transition: all .3s ease;
+  pointer-events: none; }
+  .show-modal .opacity-component {
+    opacity: 1;
+    pointer-events: auto; }
