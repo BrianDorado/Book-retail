@@ -17,8 +17,31 @@ html {
   .nav-component .nav-left {
     width: 220px;
     background: #fff;
-    color: #333; }
+    color: #333;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    font-size: 2rem;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding: .5rem 0;
+    position: relative;
+    left: -220px;
+    width: 0;
+    transition: all .8s ease-in-out; }
+    .is-mounted .nav-component .nav-left {
+      padding: .5rem 1rem .5rem .5rem;
+      width: 220px;
+      left: 0; }
+    .nav-component .nav-left span {
+      cursor: default;
+      margin-left: .4rem; }
+    .nav-component .nav-left span.highlight {
+      background: dodgerblue;
+      color: #fff;
+      margin: 0;
+      padding-right: .4rem; }
   .nav-component .nav-right {
+    width: 100%;
     background: #b94321;
     flex: 1 1 auto;
     padding: .8rem 1rem;

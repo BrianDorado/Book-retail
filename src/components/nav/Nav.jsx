@@ -1,9 +1,18 @@
 import React from 'react';
+import blueBook from '../../assets/img/blue-book.png';
 
 export default props => {
   return (
     <div className="nav-component">
-      <div className="nav-left" >left side babytyyy</div>
+      <div className="nav-left" >
+      
+      
+      
+      
+      <img src={blueBook} height="80"/>
+      
+      <span><span className='highlight'>DB</span>{'\nBOOKS'}</span>
+      </div>
       <div className="nav-right">
         <div className="top-of-nav"> {/*first child*/}
           <i className="fas fa-search" /> 
