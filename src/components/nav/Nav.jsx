@@ -2,14 +2,10 @@ import React from 'react';
 import blueBook from '../../assets/img/blue-book.png';
 import { Link } from 'react-router-dom';
 
-
 export default props => {
   return (
     <div className="nav-component">
       <div className="nav-left" >
-      
-      
-      
       
       <img src={blueBook} height="80"/>
       
@@ -30,7 +26,7 @@ export default props => {
           </div>
           <div>
               <i className="fas fa-shopping-cart"></i> 
-              <span>CART</span>
+              <Link to="/cart"><span>CART</span></Link>
           </div>
         </div>
       </div>
