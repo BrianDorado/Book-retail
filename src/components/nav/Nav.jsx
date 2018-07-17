@@ -25,7 +25,7 @@ export default props => {
         <div className='bottom-of-nav'>  {/*second child*/}
           <div>
               <Link to="/"><span>SHOP</span></Link>
-              <Link to="/other-stuff"><span>BLOG</span></Link>
+              <Link to="/other-stuff"><span>BROWSE</span></Link>
               <Link to="/about"><span>ABOUT</span></Link>
           </div>
           <div>
