@@ -5,7 +5,7 @@ import Image from '../../Media/Img/bottle-2022741_960_720.jpg';
 class Home extends Component {
   render() {
     return (
-      <div>
+      <div className="home-component">
         <h2 className='new-title-header'>Newest Title</h2>
         <div className="new-title">
           <img src={Image} alt="newest-title-cover" className="new-title-img" />
