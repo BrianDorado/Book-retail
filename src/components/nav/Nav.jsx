@@ -1,11 +1,15 @@
 import React from 'react';
 import blueBook from '../../assets/img/blue-book.png';
 import { Link } from 'react-router-dom';
-
+import Modal from '../Modal/Modal';
 
 export default props => {
+  function showModal(){
+    document.body.classList.toggle('show-modal')
+  }
   return (
     <div className="nav-component">
+      <Modal title="test moda" text="sample text"/>
       <div className="nav-left" >
       
       
@@ -20,7 +24,7 @@ export default props => {
           <i className="fas fa-search" /> 
           <span>search</span>
           <span>help</span>
-          <span>sign in</span>
+          <span onClick={showModal}>sign in</span>
         </div> 
         <div className='bottom-of-nav'>  {/*second child*/}
           <div>
@@ -30,7 +34,7 @@ export default props => {
           </div>
           <div>
               <i className="fas fa-shopping-cart"></i> 
-              <span>CART</span>
+              <Link to="/cart"><span>CART</span></Link>
           </div>
         </div>
       </div>
