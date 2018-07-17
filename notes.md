@@ -2,7 +2,7 @@ good font for filler text/ descriptions: font-family: Georgia,"Times New Roman",
 
 ## routes notes
 
-* routes : checkout, profile (user can check past orders and shipping info)
+* routes : checkout, profile (user can check past orders and shipping info), products/:booktitle (?)
 * about
 * cart 
 * help and FAQs page 
