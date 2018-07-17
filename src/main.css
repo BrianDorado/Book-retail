@@ -87,6 +87,49 @@ html {
           vertical-align: 3px;
           margin-right: .5rem; }
 
+.new-title-header {
+  margin-left: 200px;
+  font-size: 3rem;
+  padding: 45px; }
+
+.new-title {
+  height: 300px;
+  display: flex; }
+
+.new-title-img {
+  max-height: 100%;
+  margin-left: 200px; }
+
+.new-title-info {
+  padding: 1rem; }
+
+.lower-section {
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; }
+
+.new-title-description {
+  margin-top: 1rem; }
+
+.homepage-breakpoint {
+  width: 91vw;
+  height: 1vh;
+  margin: auto;
+  margin-top: 4vh;
+  opacity: .35;
+  background-color: tan; }
+
+.titles-library {
+  widht: 90vw;
+  margin: auto;
+  display: flex; }
+
+.library-header {
+  font-size: 2rem;
+  margin-left: 200px;
+  margin-top: 4vh; }
+
 .App {
   display: flex;
   flex-direction: column;
