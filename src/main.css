@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Josefin+Sans");
+@import url("https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed");
 * {
   padding: 0;
   margin: 0;
@@ -134,6 +135,34 @@ a {
   min-height: 100vh; }
 
 .test-component {
-  height: 100%;
-  background: dodgerblue;
-  color: #eee; }
+  padding: 1rem 2rem;
+  background: #eee;
+  color: #997e11;
+  flex: auto;
+  font-family: 'Barlow Semi Condensed', sans-serif; }
+  .test-component .grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1rem; }
+  .test-component .book-thumbnail {
+    height: 100px;
+    display: flex; }
+    .test-component .book-thumbnail img {
+      border: 1px solid #888;
+      height: 100%;
+      margin-right: 1rem;
+      cursor: pointer; }
+    .test-component .book-thumbnail .buy-button {
+      background: linear-gradient(#00cd00, green);
+      padding: .3rem .6rem;
+      color: #fff;
+      cursor: pointer;
+      font-size: .8rem;
+      display: inline-block; }
+    .test-component .book-thumbnail .book-title {
+      color: salmon;
+      font-family: Georgia, 'Times New Roman', Times, serif; }
+    .test-component .book-thumbnail .author-name {
+      color: #888;
+      font-family: inherit;
+      margin-bottom: .6rem; }
