@@ -1,19 +1,11 @@
 import React from 'react';
 import blueBook from '../../assets/img/blue-book.png';
 import { Link } from 'react-router-dom';
-import Modal from '../Modal/Modal';
 
 export default props => {
-  function showModal(){
-    document.body.classList.toggle('show-modal')
-  }
   return (
     <div className="nav-component">
-      <Modal title="test moda" text="sample text"/>
       <div className="nav-left" >
-      
-      
-      
       
       <img src={blueBook} height="80"/>
       
@@ -24,7 +16,7 @@ export default props => {
           <i className="fas fa-search" /> 
           <span>search</span>
           <span>help</span>
-          <span onClick={showModal}>sign in</span>
+          <span>sign in</span>
         </div> 
         <div className='bottom-of-nav'>  {/*second child*/}
           <div>

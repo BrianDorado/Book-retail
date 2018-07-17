@@ -204,7 +204,7 @@ a {
   border: 2px solid #333;
   border-radius: 4px;
   position: absolute;
-  top: -100px;
+  top: -20px;
   opacity: 0;
   width: 300px;
   left: 50%;
@@ -218,7 +218,8 @@ a {
     cursor: pointer;
     display: inline-block;
     background: #eee;
-    transition: background .25s; }
+    transition: background .25s;
+    margin: 0 .5rem; }
   .modal-component h3 {
     margin-bottom: .4rem; }
   .modal-component h6 {
@@ -238,7 +239,8 @@ a {
   opacity: 0;
   z-index: 2;
   background: rgba(0, 0, 0, 0.2);
-  transition: all .33s ease;
+  transition: all .3s ease;
   pointer-events: none; }
   .show-modal .opacity-component {
-    opacity: 1; }
+    opacity: 1;
+    pointer-events: auto; }
