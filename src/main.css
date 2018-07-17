@@ -135,15 +135,26 @@ a {
   min-height: 100vh; }
 
 .test-component {
-  padding: 1rem 2rem;
-  background: #eee;
+  padding: 3rem 2rem;
+  background: #fff;
   color: #997e11;
   flex: auto;
   font-family: 'Barlow Semi Condensed', sans-serif; }
   .test-component .grid-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 1rem; }
+    grid-gap: 1rem;
+    min-width: 730px;
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative; }
+    .test-component .grid-container::before {
+      position: absolute;
+      top: -30px;
+      left: -16px;
+      content: "Browse Books";
+      fotn-family: 'Barlow Semi Condensed', sans-serif;
+      color: #997e11; }
   .test-component .book-thumbnail {
     height: 100px;
     display: flex; }

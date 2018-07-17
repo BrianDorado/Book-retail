@@ -1,66 +1,34 @@
 import React from 'react'
 import Cover from '../../assets/img/generic-cover.jpg';
 
-export default props => (
+function BookThumbnail(props){
+    // this component will take in props based on the books array coming from the DB
+    // currently is just rendering 6 placeholders
+    return (
+        <div className="book-thumbnail">
+                <img src={Cover}/>
+                <div className="left-side">
+                    <div className="book-title">Book Title</div> 
+                    <div className="author-name"><em>by</em> Author Name</div>
+                    <div className="buy-button">BUY</div>
+                </div>
+            
+            </div>
+    )
+}
+
+export default props => {
+    
+    let thumbnailArray = []
+    for (let i=0; i<6; i++){
+        thumbnailArray.push(<BookThumbnail/>)
+    }
+ 
+    return (
     <div className="test-component">
-        <span>test component</span>
         <div className="grid-container">
-            <div className="book-thumbnail">
-                <img src={Cover}/>
-                <div className="left-side">
-                    <div className="book-title">Book Title</div> 
-                    <div className="author-name"><em>by</em> Author Name</div>
-                    <div className="buy-button">BUY</div>
-                </div>
-            
-            </div>
-            <div className="book-thumbnail">
-                <img src={Cover}/>
-                <div className="left-side">
-                    <div className="book-title">Book Title</div> 
-                    <div className="author-name"><em>by</em> Author Name</div>
-                    <div className="buy-button">BUY</div>
-                </div>
-            
-            </div>
-            <div className="book-thumbnail">
-                <img src={Cover}/>
-                <div className="left-side">
-                    <div className="book-title">Book Title</div> 
-                    <div className="author-name"><em>by</em> Author Name</div>
-                    <div className="buy-button">BUY</div>
-                </div>
-            
-            </div>
-            <div className="book-thumbnail">
-                <img src={Cover}/>
-                <div className="left-side">
-                    <div className="book-title">Book Title</div> 
-                    <div className="author-name"><em>by</em> Author Name</div>
-                    <div className="buy-button">BUY</div>
-                </div>
-            
-            </div>
-            <div className="book-thumbnail">
-                <img src={Cover}/>
-                <div className="left-side">
-                    <div className="book-title">Book Title</div> 
-                    <div className="author-name"><em>by</em> Author Name</div>
-                    <div className="buy-button">BUY</div>
-                </div>
-            
-            </div>
-            <div className="book-thumbnail">
-                <img src={Cover}/>
-                <div className="left-side">
-                    <div className="book-title">Book Title</div> 
-                    <div className="author-name"><em>by</em> Author Name</div>
-                    <div className="buy-button">BUY</div>
-                </div>
-            
-            </div>
-
+            {thumbnailArray}
         </div>
-
     </div>
-)
+    )
+}
