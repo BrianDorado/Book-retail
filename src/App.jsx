@@ -21,14 +21,15 @@ class App extends Component {
       document.body.classList.add('is-mounted')
     },1000*.3)
 
-    axios.get('http://localhost:4044/api/mock/books').then(res => {
-      console.log('data req-d');
-      this.setState({
-        mockArray: res.data 
+    
+     axios.get('/api/mock/books').then(res => {
+        this.setState({
+          mockArray: res.data
+        })
+        console.log('data returned', res.data);
       })
-      console.log('data returned', res.data);
-    }) 
   }
+  
   
   callModal = (title, text) => {
     this.setState({
