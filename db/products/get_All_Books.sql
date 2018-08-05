@@ -1,1 +1,1 @@
-select * from products where id >= 20
+select * from products where id > 20

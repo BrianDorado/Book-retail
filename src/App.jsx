@@ -22,7 +22,7 @@ class App extends Component {
     },1000*.3)
 
     
-     axios.get('/api/mock/books').then(res => {
+     axios.get('/api/products/books').then(res => {
         this.setState({
           mockArray: res.data
         })
