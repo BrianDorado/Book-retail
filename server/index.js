@@ -5,13 +5,14 @@ const express = require('express'),
       session = require('express-session'),
       massive= require('massive'),
       products = require('./Controllers/Products/product_controllers')
-      port = 3000;
+      port = 4044;
 
 require('dotenv').config()
 
 
 // ========== MIDDLEWARE ========== //
 
+app.use(express.static('build'))
 massive(process.env.CONNECTION_STRING).then(dbInstance => {
     app.set('db', dbInstance) 
 })
