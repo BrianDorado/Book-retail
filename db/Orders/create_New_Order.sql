@@ -1,0 +1,1 @@
+insert into orders (val1, val2, val3, val4, val5, val6) values ($1, $2, $3, $4, $5)
