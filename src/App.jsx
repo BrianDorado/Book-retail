@@ -4,6 +4,8 @@ import routes from './routes';
 import Opacity from './components/Opacity/Opacity';
 import axios from 'axios'
 import Modal from './components/Modal/Modal';
+import { SomeContext } from './context/testContext';
+
 
 class App extends Component {
 
@@ -38,6 +40,9 @@ class App extends Component {
   }
   render() {
     return (
+      <SomeContext.Provider value={text=>this.callModal(text, 'api')
+
+      }>
       <div className="App">
       <Modal title={this.state.modalTitle} text={this.state.modalText}/>
       <Opacity/>
@@ -45,6 +50,7 @@ class App extends Component {
         {routes}
         <button onClick={_=>this.callModal('heythere', 'buddy')}>click meh okay</button>
       </div>
+      </SomeContext.Provider>
     );
   }
 }

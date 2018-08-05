@@ -1,5 +1,6 @@
 import React from 'react'
 import Cover from '../../assets/img/generic-cover.jpg';
+import { SomeContext } from '../../context/testContext';
 
 function BookThumbnail(props){
     // this component will take in props based on the books array coming from the DB
@@ -15,7 +16,6 @@ function BookThumbnail(props){
                     <div className="author-name"><em>by</em> Author Name</div>
                     <div className="buy-button" onClick={addToCart}>BUY</div>
                 </div>
-            
             </div>
     )
 }
@@ -32,6 +32,9 @@ export default props => {
         <div className="grid-container">
             {thumbnailArray}
         </div>
+        <SomeContext.Consumer>
+                {fn=><button onClick={_=>fn('use this')}>test the context bad boy</button>}
+        </SomeContext.Consumer>
     </div>
     )
 }
