@@ -25,6 +25,7 @@ a {
   fill: #3581B8; }
 
 .nav-component {
+  z-index: 10;
   height: 121px;
   font-family: 'Josefin Sans', sans-serif;
   color: #fff;
@@ -320,10 +321,17 @@ a {
   animation: fadein 1s forwards;
   display: flex;
   flex-direction: column; }
+  .books-component .text-container {
+    overflow: auto;
+    max-height: 100%; }
   .books-component a {
     color: #b6d4ea; }
   .books-component .book-section-container {
-    max-width: 1100px; }
+    display: flex;
+    align-items: center;
+    height: 100%;
+    max-width: 1100px;
+    margin: 0 auto; }
   .books-component section {
     flex: auto;
     padding: 2rem;
@@ -336,9 +344,9 @@ a {
       width: 100%;
       z-index: -10; }
     .books-component section:first-child {
-      min-height: calc(100vh - 121px); }
+      height: calc(100vh - 121px); }
       .books-component section:first-child .text-container {
-        float: right; }
+        margin-left: auto; }
       .books-component section:first-child .bg-image {
         background: url("./assets/img/marriage-band-1920-1080.jpg");
         background-size: cover;
@@ -346,7 +354,7 @@ a {
         background-position: center;
         filter: blur(5px) grayscale(25%); }
     .books-component section:nth-child(2) {
-      min-height: 100vh; }
+      height: 100vh; }
       .books-component section:nth-child(2) .text-container {
         margin: 0; }
       .books-component section:nth-child(2) .bg-image {

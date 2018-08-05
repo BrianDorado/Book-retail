@@ -4,10 +4,17 @@
     animation: fadein 1s forwards
     display: flex
     flex-direction: column
+    .text-container
+        overflow: auto
+        max-height: 100%
     a
       color: lighten($blue, 35%)
     .book-section-container
+        display: flex
+        align-items: center
+        height: 100%
         max-width: 1100px
+        margin: 0 auto
     section // BookDisplay
         flex: auto
         padding: 2rem
@@ -20,9 +27,9 @@
             width: 100%
             z-index: -10
         &:first-child
-            min-height: $height
+            height: $height
             .text-container
-                float: right
+                margin-left: auto
             .bg-image
                 background: url('./assets/img/marriage-band-1920-1080.jpg')
                 background-size: cover
@@ -30,7 +37,7 @@
                 background-position: center
                 filter: blur(5px) grayscale(25%)
         &:nth-child(2)
-            min-height: 100vh
+            height: 100vh
             .text-container
                 margin: 0     
             .bg-image
