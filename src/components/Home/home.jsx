@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Tile from '../BookTiles/tile';
-import Image from '../../assets/img/bottle-2022741_960_720.jpg';
+import Image from '../../Media/Images/bottle-2022741_960_720.jpg';
 
 class Home extends Component {
   render() {
@@ -25,7 +25,7 @@ class Home extends Component {
         </div>
         <div className="homepage-breakpoint" />
         <div className="titles-library">
-          <h3 className='library-header'>Library</h3>
+          <h3 className="library-header">Library</h3>
           {/* To be mapped over axios body response */}
           <Tile title="" image="" description="" price="" />
         </div>
