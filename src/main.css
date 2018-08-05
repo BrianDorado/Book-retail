@@ -246,3 +246,75 @@ a {
   .show-modal .opacity-component {
     opacity: 1;
     pointer-events: auto; }
+
+.landing-component {
+  height: calc(100vh - 121px);
+  position: relative;
+  padding: 80px 0;
+  overflow: hidden; }
+
+.background-image {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: url("./assets/img/family_medium1.jpg");
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  background-size: cover;
+  height: calc(100vh - 121px);
+  filter: blur(5px);
+  filter: grayscale(25%) blur(4px);
+  z-index: -10; }
+
+.text-container {
+  position: static;
+  z-index: 10;
+  margin-left: 10vw;
+  padding: 2rem;
+  width: 550px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  display: inline-block; }
+  .text-container h1 {
+    font-family: "Josefin Sans", sans-serif;
+    font-weight: normal;
+    margin-bottom: 1rem; }
+  .text-container p {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    margin-top: .8rem;
+    line-height: 1.4rem; }
+
+.books-component {
+  display: flex;
+  flex-direction: column; }
+  .books-component section {
+    flex: auto;
+    padding: 2rem;
+    position: relative; }
+    .books-component section .bg-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      z-index: -10; }
+    .books-component section:first-child .text-container {
+      float: right; }
+    .books-component section:first-child .bg-image {
+      background: url("./assets/img/marriage-band-1920-1080.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      filter: blur(5px) grayscale(25%); }
+    .books-component section:nth-child(2) .text-container {
+      margin: 0; }
+    .books-component section:nth-child(2) .bg-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: url("./assets/img/bride-groom1620-1080.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      filter: blur(5px) grayscale(25%); }

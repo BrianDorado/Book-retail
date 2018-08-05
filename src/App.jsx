@@ -49,7 +49,6 @@ class App extends Component {
       <Opacity/>
         <Nav/>
         {routes}
-        <button onClick={_=>this.callModal('heythere', 'buddy')}>click meh okay</button>
       </div>
       </SomeContext.Provider>
     );
