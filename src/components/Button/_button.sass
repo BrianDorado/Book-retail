@@ -1,10 +1,15 @@
+$btnclr1: #eee
+$btnclr2: #ccc
 .button-component
     font-family: $font1
     padding: .5rem 1rem
-    border: 1px solid teal
-    background: rgba(#fff, .8)
-    color: teal
+    border: 1px solid $blue
+    background: linear-gradient($btnclr1, $btnclr2)
+    color: $blue
     display: inline-block
     border-radius: 2px
     cursor: pointer
+    -webkit-user-select: none
     users-select: none
+    &:active
+        background: linear-gradient($btnclr2, $btnclr1)

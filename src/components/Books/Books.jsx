@@ -76,10 +76,12 @@ function BookDisplay(props) {
   return (
     <section>
         <div className="bg-image"></div>
-        <div className="text-container">
-            <h1>{props.title}</h1>
-            <Button text='add to cart'/>
-            {props.text}
+        <div className="book-section-container clearfix">
+          <div className="text-container">
+              <h1>{props.title}</h1>
+              <Button text='add to cart'/>
+              {props.text}
+          </div>
         </div>
     </section>
   );
