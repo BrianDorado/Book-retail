@@ -10,7 +10,7 @@ export default props => {
           <div>
             <p>
               Marriage between a man and a woman has been the divine pattern originating in the Garden of Eden with our
-              First Parents <a href='https://www.lds.org/scriptures/ot/gen/1.26-27'>(Genesis 1:26-27)</a>, and this union has been the traditional form of marriage for millennia.
+              First Parents <a href='https://www.lds.org/scriptures/ot/gen/1.26-27' target='blank'>(Genesis 1:26-27)</a>, and this union has been the traditional form of marriage for millennia.
               The First Couple were married by God before death entered the world. Therefore marriage was intended to be
               an eternal relationship. It is made possible through the resurrection brought about by Jesus Christ. A
               priesthood key restored by Elijah seals a couple together for ‘time and for eternity.’
@@ -30,7 +30,7 @@ export default props => {
             <p>
               During his ministry, President Boyd K. Packer of the Quorum of the Twelve Apostles was fond of stating
               that doctrine was a powerful tool in changing and improving behavior. “True doctrine, understood,” he
-              said, “will change behavior quicker than will the study of behavior change behavior’ <a href='https://www.lds.org/general-conference/2004/04/do-not-fear?lang=eng'>(“Do Not Fear,”
+              said, “will change behavior quicker than will the study of behavior change behavior’ <a href='https://www.lds.org/general-conference/2004/04/do-not-fear?lang=eng' target='blank'>(“Do Not Fear,”
               Ensign, May 2004, 73.)</a> This book attests to that principle.
             </p>
           </div>

@@ -134,6 +134,20 @@ a {
   flex-direction: column;
   min-height: 100vh; }
 
+#author-pic {
+  border-radius: 50%;
+  height: 260px;
+  margin: 16px 0; }
+
+.about-component {
+  min-height: calc(100vh - 121px);
+  background: #afafaf;
+  text-align: center; }
+  .about-component .text-container {
+    display: inline-block;
+    margin: 0;
+    margin-bottom: 16px; }
+
 .test-component {
   padding: 3rem 2rem;
   background: #fff;
@@ -288,6 +302,8 @@ a {
 .books-component {
   display: flex;
   flex-direction: column; }
+  .books-component a {
+    color: #1ad9ff !important; }
   .books-component section {
     flex: auto;
     padding: 2rem;
@@ -327,4 +343,5 @@ a {
   color: teal;
   display: inline-block;
   border-radius: 2px;
-  cursor: pointer; }
+  cursor: pointer;
+  users-select: none; }
