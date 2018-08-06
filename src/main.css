@@ -152,9 +152,11 @@ a {
   height: 260px;
   margin: 16px 0; }
 
+.fadein {
+  animation: fadein 1s forwards; }
+
 .about-component {
   opacity: 0;
-  animation: fadein 1s forwards;
   min-height: calc(100vh - 121px);
   background: linear-gradient(#fff, #eee);
   text-align: center; }
@@ -276,9 +278,11 @@ a {
     opacity: 1;
     pointer-events: auto; }
 
+.fadein {
+  animation: fadein 1s forwards; }
+
 .landing-component {
   opacity: 0;
-  animation: fadein 1s forwards;
   height: calc(100vh - 121px);
   position: relative;
   padding: 80px 0;
@@ -316,9 +320,11 @@ a {
     margin-top: .8rem;
     line-height: 1.4rem; }
 
+.fadein {
+  animation: fadein 1s forwards; }
+
 .books-component {
   opacity: 0;
-  animation: fadein 1s forwards;
   display: flex;
   flex-direction: column; }
   .books-component .text-container {
