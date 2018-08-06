@@ -2,6 +2,7 @@ import React from "react";
 import Button from "../Button/Button";
 import marriageBand from "../../assets/img/marriage-band-1920-1080.jpg";
 import brideGroom from "../../assets/img/bride-groom1620-1080.jpg";
+import {SomeContext} from '../../context/testContext';
 
 export default class Books extends React.Component {
   componentDidMount() {
@@ -127,10 +128,12 @@ function BookDisplay(props) {
     <section>
       <div className="bg-image" />
       <div className="book-section-container">
-        <div className="text-container-wrapper" style={{width:"550px", overflow:"hidden", height: "100%", position: "relative"}}>
+        <div className="text-container-wrapper" style={{width:"550px", overflow:"hidden", height: "100%", position: "relative", display: "flex", alignItems: "center"}}>
         <div className="text-container">
           <h1>{props.title}</h1>
-          <Button text="add to cart" />
+          <SomeContext.Consumer>
+            {fn=><Button fn={_=>fn('call_modal_title', 'call_modal_text')} text="add to cart" />}
+          </SomeContext.Consumer>
           {props.text}
         </div>
         </div>
