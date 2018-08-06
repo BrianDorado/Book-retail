@@ -5,12 +5,23 @@ import brideGroom from "../../assets/img/bride-groom1620-1080.jpg";
 
 export default class Books extends React.Component {
   componentDidMount() {
+    // hide scrollbars
+    const textContainers = document.querySelectorAll('.text-container');
+    // offsetWidth - clientWidth to determine size of scrollbar
+    const scrollbarOffset = textContainers[0].offsetWidth - textContainers[0].clientWidth 
+    textContainers[0].style.right = "-" + scrollbarOffset + "px"
+    textContainers[1].style.right = "-" + scrollbarOffset + "px"
+    textContainers[0].style.position = "relative"
+    textContainers[1].style.position = "relative"
+    const textContainerWrappers = document.querySelectorAll('.text-container-wrapper');
+    textContainerWrappers[0].style.marginLeft = "auto"
+    textContainerWrappers[1].style.marginLeft = "-" + scrollbarOffset + "px"
+
     const bgImg1 = new Image();
     const bgImg2 = new Image();
     bgImg1.src = marriageBand;
     bgImg2.src = brideGroom;
 
-    const imagesLoaded = new Promise(function(resolve, reject) {});
 
     let bg1Loaded = false;
     let bg2Loaded = false;
@@ -116,10 +127,12 @@ function BookDisplay(props) {
     <section>
       <div className="bg-image" />
       <div className="book-section-container">
+        <div className="text-container-wrapper" style={{width:"550px", overflow:"hidden", height: "100%", position: "relative"}}>
         <div className="text-container">
           <h1>{props.title}</h1>
           <Button text="add to cart" />
           {props.text}
+        </div>
         </div>
       </div>
     </section>
