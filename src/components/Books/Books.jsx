@@ -2,27 +2,26 @@ import React from "react";
 import Button from "../Button/Button";
 import marriageBand from "../../assets/img/marriage-band-1920-1080.jpg";
 import brideGroom from "../../assets/img/bride-groom1620-1080.jpg";
-import {SomeContext} from '../../context/testContext';
+import { SomeContext } from "../../context/testContext";
 
 export default class Books extends React.Component {
   componentDidMount() {
     // hide scrollbars
-    const textContainers = document.querySelectorAll('.text-container');
+    const textContainers = document.querySelectorAll(".text-container");
     // offsetWidth - clientWidth to determine size of scrollbar
-    const scrollbarOffset = textContainers[0].offsetWidth - textContainers[0].clientWidth 
-    textContainers[0].style.right = "-" + scrollbarOffset + "px"
-    textContainers[1].style.right = "-" + scrollbarOffset + "px"
-    textContainers[0].style.position = "relative"
-    textContainers[1].style.position = "relative"
-    const textContainerWrappers = document.querySelectorAll('.text-container-wrapper');
-    textContainerWrappers[0].style.marginLeft = "auto"
-    textContainerWrappers[1].style.marginLeft = "-" + scrollbarOffset + "px"
+    const scrollbarOffset = textContainers[0].offsetWidth - textContainers[0].clientWidth;
+    textContainers[0].style.right = "-" + scrollbarOffset + "px";
+    textContainers[1].style.right = "-" + scrollbarOffset + "px";
+    textContainers[0].style.position = "relative";
+    textContainers[1].style.position = "relative";
+    const textContainerWrappers = document.querySelectorAll(".text-container-wrapper");
+    textContainerWrappers[0].style.marginLeft = "auto";
+    textContainerWrappers[1].style.marginLeft = "-" + scrollbarOffset + "px";
 
     const bgImg1 = new Image();
     const bgImg2 = new Image();
     bgImg1.src = marriageBand;
     bgImg2.src = brideGroom;
-
 
     let bg1Loaded = false;
     let bg2Loaded = false;
@@ -30,20 +29,30 @@ export default class Books extends React.Component {
     bgImg1.onload = function() {
       bg1Loaded = true;
       if (bg2Loaded) {
-        document.querySelector(".books-component").classList.add("fadein");
         console.timeEnd("book-imgs-load");
+        firstLoadDelay(1200)
       }
     };
     bgImg2.onload = function() {
       bg2Loaded = true;
       if (bg1Loaded) {
-        document.querySelector(".books-component").classList.add("fadein");
         console.timeEnd("book-imgs-load");
+        firstLoadDelay(1200)
       }
     };
     const bgImageElements = document.querySelectorAll(".bg-image");
     bgImageElements[0].style.backgroundImage = "url(" + bgImg1 + ")";
+    console.log(' bg 2 ', bgImg2)
     bgImageElements[1].style.backgroundImage = "url(" + bgImg2 + ")";
+
+    function firstLoadDelay(delay) {
+      if(document.body.classList.contains('is-mounted')){
+        fadeInComponent()
+      } else setTimeout(fadeInComponent,delay)
+    }
+    function fadeInComponent() {
+      document.querySelector('.books-component').classList.add('fadein');
+    }
   }
   render() {
     return (
@@ -58,7 +67,7 @@ export default class Books extends React.Component {
                 <a href="https://www.lds.org/scriptures/ot/gen/1.26-27" target="blank">
                   (Genesis 1:26-27)
                 </a>, and this union has been the traditional form of marriage for millennia. The First Couple were
-                married by God before death entered the world. Therefore marriage was intended to be an eternal
+                married by God before death entered the world. Therefore, marriage was intended to be an eternal
                 relationship. It is made possible through the resurrection brought about by Jesus Christ. A priesthood
                 key restored by Elijah seals a couple together for ‘time and for eternity.’
               </p>
@@ -87,6 +96,7 @@ export default class Books extends React.Component {
             </div>
           }
         />
+        <div className="mediary-div"></div>
         <BookDisplay
           title="What We Wish We'd Known Before Our Honeymoon"
           text={
@@ -107,13 +117,12 @@ export default class Books extends React.Component {
                 other the intricacies of physical intimacy.
               </p>
               <p>
-                Though highly anticipated by these couples, sexual relations are often more difficult for them than
-                portrayed by actors in films. In fact, as you will see, many couples and the first few nights of their
-                time together rather frustrating as they learn that what they thought would be simple and pleasurable,
-                may be difficult. However, the joy of being together, of exploring male/female attributes now as legal
-                companions, they now must learn from each other about such things as arousal, passion, and intercourse
-                as important elements of their new companionship. This book is designed to help newlyweds achieve
-                success in the intimate exchanges they share ‘between husband and wife.’
+                Though highly anticipated by these couples, sexual relations were often more difficult for them than
+                portrayed by actors in films. In fact, as you will see, many couples found the first few nights of their
+                time together rather challenging and often disappointing. However, the joy of being together, of
+                exploring male/female attributes now as legal companions, they had to learn from each other facets of
+                intimacy such as arousal, passion, and intercourse--important elements of their new companionship. This
+                book is designed to help newlyweds achieve success in the intimate exchange of being husband and wife.
               </p>
             </div>
           }
@@ -128,14 +137,24 @@ function BookDisplay(props) {
     <section>
       <div className="bg-image" />
       <div className="book-section-container">
-        <div className="text-container-wrapper" style={{width:"550px", overflow:"hidden", height: "100%", position: "relative", display: "flex", alignItems: "center"}}>
-        <div className="text-container">
-          <h1>{props.title}</h1>
-          <SomeContext.Consumer>
-            {fn=><Button fn={_=>fn('call_modal_title', 'call_modal_text')} text="add to cart" />}
-          </SomeContext.Consumer>
-          {props.text}
-        </div>
+        <div
+          className="text-container-wrapper"
+          style={{
+            width: "550px",
+            overflow: "hidden",
+            height: "100%",
+            position: "relative",
+            display: "flex",
+            alignItems: "center"
+          }}
+        >
+          <div className="text-container">
+            <h1>{props.title}</h1>
+            <SomeContext.Consumer>
+              {fn => <Button fn={_ => fn("call_modal_title", "call_modal_text")} text="add to cart" />}
+            </SomeContext.Consumer>
+            {props.text}
+          </div>
         </div>
       </div>
     </section>

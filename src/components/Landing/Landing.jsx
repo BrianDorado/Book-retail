@@ -4,20 +4,20 @@ import family from "../../assets/img/family_medium1.jpg";
 export default class Landing extends React.Component {
   componentDidMount() {
     var bgImage = new Image();
-    bgImage.onprogress = function(e) {
-        console.log(`
-            __progress__
-        `, e)
-}
-    console.time('load image')
-    bgImage.onload = function() {
-        console.timeEnd('load image')
-        document.querySelector('.landing-component').classList.add('fadein')
-    };
-    document.querySelector(".background-image").style.backgroundImage = "url(" + family + ")";
     bgImage.src = family
-
-}
+    document.querySelector(".background-image").style.backgroundImage = "url(" + family + ")";
+    
+    console.time('load_landing_bgImage')
+    bgImage.onload = function() {
+      console.timeEnd('load_landing_bgImage')
+      if(document.body.classList.contains('is-mounted'))
+        fadeInComponent()
+      else setTimeout(fadeInComponent, 1200)
+    };
+    function fadeInComponent(){
+      document.querySelector('.landing-component').classList.add('fadein')
+    }
+  }
 
   render() {
     return (

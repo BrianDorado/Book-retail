@@ -21,6 +21,11 @@ a {
   color: currentColor;
   text-decoration: none; }
 
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; }
+
 #book-svg {
   fill: #3581B8; }
 
@@ -29,7 +34,9 @@ a {
   height: 121px;
   font-family: 'Josefin Sans', sans-serif;
   color: #fff;
-  display: flex; }
+  display: flex;
+  position: relative;
+  border-bottom: 2px solid #1e4969; }
   .nav-component i, .nav-component span {
     cursor: pointer; }
   .nav-component .nav-left {
@@ -59,6 +66,7 @@ a {
       margin: 0;
       padding-right: .4rem; }
   .nav-component .nav-right {
+    position: relative;
     width: 100%;
     background: #3581B8;
     flex: 1 1 auto;
@@ -142,11 +150,6 @@ a {
     margin-left: 200px;
     margin-top: 4vh; }
 
-.App {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; }
-
 #author-pic {
   border-radius: 50%;
   height: 260px;
@@ -210,6 +213,7 @@ a {
       margin-bottom: .6rem; }
 
 .cart-component {
+  min-height: calc(100vh - 121px);
   flex: auto;
   padding: 1rem 3rem;
   background: linear-gradient(#fff, #eee);
@@ -231,15 +235,14 @@ a {
   font-family: 'Barlow Semi Condensed', sans-serif;
   color: #997e11;
   padding: 1rem;
-  background: #fff;
-  border: 2px solid #333;
-  border-radius: 4px;
+  background: linear-gradient(#fff, #eee);
+  border-top: 1px solid #888;
+  border-bottom: 1px solid #888;
   position: absolute;
   top: -20px;
   opacity: 0;
-  width: 300px;
-  left: 50%;
-  margin-left: -150px;
+  width: 100%;
+  left: 0;
   text-align: center;
   transition: opacity .33s ease-in-out;
   z-index: 15;
@@ -257,9 +260,9 @@ a {
   .modal-component h6 {
     margin-bottom: .8rem; }
   .modal-component .modal-btn:hover {
-    background: #eeeeee88; }
+    background: #eee; }
   .show-modal .modal-component {
-    top: 80px;
+    top: 200px;
     opacity: 1;
     pointer-events: auto; }
 
@@ -283,7 +286,7 @@ a {
 
 .landing-component {
   opacity: 0;
-  height: calc(100vh - 121px);
+  height: 100vh;
   position: relative;
   padding: 80px 0;
   overflow: hidden; }
@@ -294,12 +297,12 @@ a {
   top: 0;
   left: 0;
   background: url("./assets/img/family_medium1.jpg");
+  background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  height: calc(100vh - 121px);
-  filter: blur(5px);
-  filter: grayscale(25%) blur(4px);
+  height: 100vh;
+  filter: grayscale(25%) blur(0px);
   z-index: -10; }
 
 .text-container {
@@ -350,33 +353,37 @@ a {
       width: 100%;
       z-index: -10; }
     .books-component section:first-child {
-      height: calc(100vh - 121px); }
+      height: 100vh; }
       .books-component section:first-child .text-container {
         margin-left: auto; }
       .books-component section:first-child .bg-image {
         background: url("./assets/img/marriage-band-1920-1080.jpg");
+        background-attachment: fixed;
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
-        filter: blur(5px) grayscale(25%); }
-    .books-component section:nth-child(2) {
+        filter: blur(0px) grayscale(25%); }
+    .books-component section:nth-child(3) {
       height: 100vh; }
-      .books-component section:nth-child(2) .text-container {
+      .books-component section:nth-child(3) .text-container {
         margin: 0; }
-      .books-component section:nth-child(2) .bg-image {
-        position: absolute;
-        top: 0;
-        left: 0;
+      .books-component section:nth-child(3) .bg-image {
         background: url("./assets/img/bride-groom1620-1080.jpg");
+        background-attachment: fixed;
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
-        filter: blur(5px) grayscale(25%); }
+        filter: blur(0px) grayscale(25%); }
+  .books-component .mediary-div {
+    height: 4rem;
+    z-index: 10;
+    background: #1e4969;
+    border-top: 4px solid #1e4969;
+    border-bottom: 4px solid #1e4969; }
 
 .button-component {
   font-family: "Barlow Semi Condensed", sans-serif;
   padding: .5rem 1rem;
-  border: 1px solid #3581B8;
   background: linear-gradient(#eee, #ccc);
   color: #3581B8;
   display: inline-block;
@@ -386,3 +393,75 @@ a {
   users-select: none; }
   .button-component:active {
     background: linear-gradient(#ccc, #eee); }
+
+.footer-component {
+  height: 120px;
+  background: #3581B8;
+  z-index: 10;
+  padding: 1rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center; }
+  .footer-component .footer-information {
+    color: #eee;
+    text-align: right; }
+    .footer-component .footer-information span, .footer-component .footer-information a {
+      cursor: pointer; }
+      .footer-component .footer-information span:hover, .footer-component .footer-information a:hover {
+        color: #bbbbbb; }
+
+.hamburger-menu-component {
+  color: #fff;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  -webkit-user-select: none;
+  user-select: none; }
+
+#hamburger-icon {
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  padding: .3rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  transform: rotate(90deg);
+  transition: transform .3s ease-in-out; }
+  #hamburger-icon div {
+    background: #fff;
+    height: 100%;
+    width: 6px;
+    border-radius: 2px; }
+  #hamburger-icon.icon-clicked {
+    transform: rotate(0); }
+
+#drop-down-menu {
+  height: 0;
+  width: 100vw;
+  background: #7ab1d9;
+  transition: all .3s ease-in-out;
+  font-family: "Josefin Sans", sans-serif;
+  text-align: center;
+  color: #fff; }
+  #drop-down-menu.grow {
+    border-bottom: 2px solid #1e4969;
+    height: 242px;
+    padding: 1rem 0; }
+  #drop-down-menu h1 {
+    font-weight: normal;
+    transition: all .3s;
+    cursor: pointer;
+    display: inline-block;
+    border-bottom: 4px solid transparent;
+    margin-bottom: .5rem; }
+    #drop-down-menu h1:hover {
+      border-bottom: 4px solid currentColor; }
+
+@media screen and (min-width: 758px) {
+  .hamburger-menu-component, #drop-down-menu {
+    display: none; } }
+
+@media screen and (max-width: 758px) {
+  .nav-component .nav-right div.top-of-nav, .nav-component .nav-right div.bottom-of-nav {
+    display: none; } }

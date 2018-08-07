@@ -2,15 +2,14 @@
     font-family: 'Barlow Semi Condensed', sans-serif
     color: $gold
     padding: 1rem
-    background: #fff
-    border: 2px solid #333
-    border-radius: 4px
+    background: linear-gradient(#fff, #eee)
+    border-top: 1px solid #888
+    border-bottom: 1px solid #888
     position: absolute
     top: -20px
     opacity: 0
-    width: 300px
-    left: 50%
-    margin-left: -150px
+    width: 100%
+    left: 0
     text-align: center
     transition: opacity .33s ease-in-out
     z-index: 15
@@ -28,8 +27,8 @@
     h6
         margin-bottom: .8rem
     .modal-btn:hover
-        background: #eeeeee88
+        background: #eee
     .show-modal &
-        top: 80px
+        top: 200px
         opacity: 1
         pointer-events: auto

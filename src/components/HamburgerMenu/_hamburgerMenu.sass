@@ -1,0 +1,25 @@
+.hamburger-menu-component
+    color: #fff
+    position: absolute
+    right: 10px
+    bottom: 10px
+    -webkit-user-select: none
+    user-select: none
+#hamburger-icon
+    cursor: pointer
+    height: 40px
+    width: 40px
+    padding: .3rem
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    transform: rotate(90deg)
+    transition: transform .3s ease-in-out
+    div
+        background: #fff
+        height: 100%
+        width: 6px
+        border-radius: 2px
+    &.icon-clicked
+        transform: rotate(0)
+

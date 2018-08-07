@@ -1,0 +1,21 @@
+#drop-down-menu
+    height: 0
+    width: 100vw
+    background: lighten($blue, 20)
+    transition: all .3s ease-in-out
+    font-family: $font2
+    text-align: center
+    color: #fff
+    &.grow
+        border-bottom: 2px solid darken($blue, 20)
+        height: 242px 
+        padding: 1rem 0
+    h1
+        font-weight: normal
+        transition: all .3s
+        cursor: pointer
+        display: inline-block
+        border-bottom: 4px solid transparent
+        margin-bottom: .5rem
+        &:hover
+            border-bottom: 4px solid currentColor

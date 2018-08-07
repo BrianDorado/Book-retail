@@ -27,25 +27,30 @@
             width: 100%
             z-index: -10
         &:first-child
-            height: $height
+            height: 100vh
             .text-container
                 margin-left: auto
             .bg-image
                 background: url('./assets/img/marriage-band-1920-1080.jpg')
+                background-attachment: $bg-attachment
                 background-size: cover
                 background-repeat: no-repeat
                 background-position: center
-                filter: blur(5px) grayscale(25%)
-        &:nth-child(2)
+                filter: blur($blur) grayscale(25%)
+        &:nth-child(3)
             height: 100vh
             .text-container
                 margin: 0     
             .bg-image
-                position: absolute
-                top: 0 
-                left: 0
                 background: url('./assets/img/bride-groom1620-1080.jpg')
+                background-attachment: $bg-attachment
                 background-size: cover
                 background-repeat: no-repeat
                 background-position: center
-                filter: blur(5px) grayscale(25%)
+                filter: blur($blur) grayscale(25%)
+    .mediary-div
+        height: 4rem
+        z-index: 10
+        background: darken($blue, 20)
+        border-top: 4px solid darken($blue, 20)
+        border-bottom: 4px solid darken($blue, 20)

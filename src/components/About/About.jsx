@@ -1,22 +1,25 @@
 import React from "react";
-import author from "./../../assets/img/author.jpg";
+import author from "./../../assets/img/author_1.jpg";
 
 export default class About extends React.Component {
-    componentDidMount() {
-        let bgImage = new Image()
-        bgImage.src = author
-        console.time('load-author')
-        bgImage.onload = e => {
+  componentDidMount() {
+    let bgImage = new Image();
+    bgImage.src = author;
+    document.querySelector("#author-pic").style.backgroundImage = "url(" + author + ")";
 
-
-            console.timeEnd('load-author')
-            document.querySelector('.about-component').classList.add('fadein')
-        }
-        document.querySelector('#author-pic').style.backgroundImage = "url(" + author + ")"
+    console.time("load-author");
+    bgImage.onload = _=> {
+      console.timeEnd("load-author");
+      if (document.body.classList.contains("is-mounted"))
+        fadeInComponent()
+      else setTimeout(fadeInComponent, 1200);
+    };
+    function fadeInComponent() {
+      document.querySelector('.about-component').classList.add('fadein')
     }
-  
-  
-    render() {
+  }
+
+  render() {
     return (
       <div className="about-component">
         <img src={author} id="author-pic" alt="Doug Brinley" />
