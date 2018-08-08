@@ -42,6 +42,7 @@ $bg-attachment: fixed
 @import './components/Footer/_footer.sass'
 @import './components/HamburgerMenu/_hamburgerMenu.sass'
 @import './components/DropdownMenu/_dropdownMenu.sass'
+@import './components/Contact/_contact.sass'
 
 @media screen and (min-width: 758px)
     .hamburger-menu-component, #drop-down-menu
@@ -51,3 +52,13 @@ $bg-attachment: fixed
     .nav-component .nav-right
         div.top-of-nav, div.bottom-of-nav
             display: none
+    .text-container
+        margin: 0
+        width: 100%
+@media screen and (max-width: 550px)
+    // .text-container
+    //     width: 100% 
+    .books-component section
+        padding: 2rem 0
+        height: auto !important
+    

@@ -23,8 +23,7 @@ a {
 
 .App {
   display: flex;
-  flex-direction: column;
-  min-height: 100vh; }
+  flex-direction: column; }
 
 #book-svg {
   fill: #3581B8; }
@@ -274,7 +273,7 @@ a {
   width: 100%;
   opacity: 0;
   z-index: 14;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(68, 68, 68, 0.6);
   transition: opacity .3s ease;
   pointer-events: none; }
   .show-modal .opacity-component {
@@ -353,7 +352,7 @@ a {
       width: 100%;
       z-index: -10; }
     .books-component section:first-child {
-      height: 100vh; }
+      height: auto; }
       .books-component section:first-child .text-container {
         margin-left: auto; }
       .books-component section:first-child .bg-image {
@@ -364,7 +363,7 @@ a {
         background-position: center;
         filter: blur(0px) grayscale(25%); }
     .books-component section:nth-child(3) {
-      height: 100vh; }
+      height: auto; }
       .books-component section:nth-child(3) .text-container {
         margin: 0; }
       .books-component section:nth-child(3) .bg-image {
@@ -438,15 +437,22 @@ a {
 
 #drop-down-menu {
   height: 0;
-  width: 100vw;
+  width: 100%;
+  position: absolute;
+  opacity: 0;
+  top: 121px;
+  z-index: 10;
+  left: 0;
   background: #7ab1d9;
   transition: all .3s ease-in-out;
   font-family: "Josefin Sans", sans-serif;
   text-align: center;
   color: #fff; }
   #drop-down-menu.grow {
+    opacity: 1;
+    display: block;
     border-bottom: 2px solid #1e4969;
-    height: 200px;
+    height: 236px;
     padding: 1rem 0; }
   #drop-down-menu h1 {
     font-weight: normal;
@@ -458,10 +464,26 @@ a {
     #drop-down-menu h1:hover {
       border-bottom: 4px solid currentColor; }
 
+.contact-component {
+  min-height: calc(100vh - 121px);
+  flex: auto;
+  padding: 1rem 3rem;
+  background: linear-gradient(#fff, #eee);
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  color: #997e11; }
+
 @media screen and (min-width: 758px) {
   .hamburger-menu-component, #drop-down-menu {
     display: none; } }
 
 @media screen and (max-width: 758px) {
   .nav-component .nav-right div.top-of-nav, .nav-component .nav-right div.bottom-of-nav {
-    display: none; } }
+    display: none; }
+  .text-container {
+    margin: 0;
+    width: 100%; } }
+
+@media screen and (max-width: 550px) {
+  .books-component section {
+    padding: 2rem 0;
+    height: auto !important; } }

@@ -25,9 +25,7 @@ export default props => {
         <div className="top-of-nav"> {/*first child*/}
           <i className="fas fa-search" /> 
           <span>search</span>
-          <SomeContext.Consumer>
-          {fn=><span onClick={_=>fn('contact_us')}>contact us</span>}
-          </SomeContext.Consumer>
+          <Link to="/contact"><span>contact</span></Link>
           <span>sign in</span>
         </div> 
         <div className='bottom-of-nav'>  {/*second child*/}

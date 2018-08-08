@@ -1,14 +1,21 @@
 #drop-down-menu
     height: 0
-    width: 100vw
+    width: 100%
+    position: absolute
+    opacity: 0
+    top: 121px
+    z-index: 10
+    left: 0
     background: lighten($blue, 20)
     transition: all .3s ease-in-out
     font-family: $font2
     text-align: center
     color: #fff
     &.grow
+        opacity: 1
+        display: block
         border-bottom: 2px solid darken($blue, 20)
-        height: 200px 
+        height: 236px 
         padding: 1rem 0
     h1
         font-weight: normal

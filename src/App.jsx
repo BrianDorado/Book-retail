@@ -5,7 +5,7 @@ import Opacity from "./components/Opacity/Opacity";
 import Modal from "./components/Modal/Modal";
 import { SomeContext } from "./context/testContext";
 import Footer from "./components/Footer/Footer";
-import DropdownMenu from './components/DropdownMenu/dropdownMenu';
+import DropdownMenu from "./components/DropdownMenu/dropdownMenu";
 
 class App extends Component {
   constructor() {
@@ -22,12 +22,15 @@ class App extends Component {
     }, 800);
 
     document.body.onscroll = _ => {
-      if (document.body.classList.contains("show-modal")) window.scrollTo(0, 0); // prevent free scroll when modal open
-      const opacity = document.querySelector(".opacity-component");
-      const modal = document.querySelector(".modal-component");
+      if (document.body.classList.contains("show-modal")) {
+        // prevent free scroll when modal open
+        window.scrollTo(0, 0);
+        const opacity = document.querySelector(".opacity-component");
+        const modal = document.querySelector(".modal-component");
 
-      opacity.style.top = window.scrollY + "px";
-      modal.style.top = window.scrollY + 200 + "px";
+        opacity.style.top = window.scrollY + "px";
+        modal.style.top = window.scrollY + 200 + "px";
+      }
     };
 
     //   document.body.onscroll =  e=>{
@@ -42,12 +45,18 @@ class App extends Component {
     //   }
 
     // add functionality to hamburger menu
-    const hamburgerIcon = document.querySelector("#hamburger-icon")
-    const dropdown = document.querySelector('#drop-down-menu')
+    const hamburgerIcon = document.querySelector("#hamburger-icon");
+    const dropdown = document.querySelector("#drop-down-menu");
     hamburgerIcon.onclick = _ => {
-     dropdown.classList.toggle("grow");
-      hamburgerIcon.classList.toggle('icon-clicked')
+      dropdown.classList.toggle("grow");
+      hamburgerIcon.classList.toggle("icon-clicked");
     };
+    Array.from(dropdown.children).forEach(el => {
+      el.onclick = _ => {
+        dropdown.classList.toggle("grow");
+        hamburgerIcon.classList.toggle("icon-clicked");
+      };
+    });
   }
 
   callModal = (title, text) => {
@@ -72,7 +81,7 @@ class App extends Component {
           <Modal title={this.state.modalTitle} text={this.state.modalText} />
           <Opacity />
           <Nav />
-          <DropdownMenu/> {/* <-- this is the drop down menu */}
+          <DropdownMenu /> {/* <-- this is the drop down menu */}
           {routes}
           <Footer />
         </div>
