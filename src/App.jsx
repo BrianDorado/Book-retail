@@ -11,8 +11,14 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      modalTitle: "",
-      modalText: ""
+      modalData: {
+        title: '',
+        string: '',
+        btn1text: '',
+        btn1fn: () => {},
+        btn2text: '',
+        btn2fn: () => {}
+      }
     };
   }
 
@@ -59,14 +65,15 @@ class App extends Component {
     });
   }
 
-  callModal = (title, text) => {
+  callModal = (title, text, btn1text, btn1fn, btn2text, btn2fn) => {
     // set window.pageYOffset or window.scrollY to the top of opacity and modal + 80
     document.querySelector(".opacity-component").style.top = window.pageYOffset + "px";
     document.querySelector(".modal-component").style.top = window.pageYOffset + 200 + "px";
     this.setState(
       {
-        modalTitle: title,
-        modalText: text
+        modalData: {
+          title, text, btn1text, btn1fn, btn2text, btn2fn
+        }
       },
       () => {
         document.body.classList.toggle("show-modal");
@@ -75,10 +82,11 @@ class App extends Component {
   };
 
   render() {
+    const { title, text, btn1text, btn1fn, btn2text, btn2fn } = this.state.modalData
     return (
-      <SomeContext.Provider value={text => this.callModal(text, "api")}>
+      <SomeContext.Provider value={this.callModal}>
         <div className="App">
-          <Modal title={this.state.modalTitle} text={this.state.modalText} />
+          <Modal title={title} text={text} btn1text={btn1text} btn1fn={btn1fn} btn2text={btn2text} btn2fn={btn2fn} />
           <Opacity />
           <Nav />
           <DropdownMenu /> {/* <-- this is the drop down menu */}

@@ -29,6 +29,7 @@ a {
   fill: #3581B8; }
 
 .nav-component {
+  overflow: hidden;
   z-index: 10;
   height: 121px;
   font-family: 'Josefin Sans', sans-serif;
