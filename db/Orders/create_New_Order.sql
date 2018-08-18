@@ -1,1 +1,9 @@
-insert into orders (val1, val2, val3, val4, val5, val6) values ($1, $2, $3, $4, $5)
+insert into orders (book_id, qty, price_total) values ($1, $2, $3, $4)
+
+
+-- create table orders
+-- (
+--     id SERIAL UNIQUE PRIMARY KEY,
+--     book_id Integer,
+--     qty INTEGER
+-- )

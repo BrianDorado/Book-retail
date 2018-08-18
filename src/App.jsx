@@ -12,7 +12,7 @@ class App extends Component {
   state={
       modalTitle: '',
       modalText: '',
-      mockArray: []
+      prod_Arr: []
     }
   
 
@@ -24,9 +24,9 @@ class App extends Component {
     
      axios.get('/api/products/books').then(res => {
         this.setState({
-          mockArray: res.data
+          prod_Arr: res.data
         })
-        console.log('data returned', res.data);
+        // console.log('data returned', res.data);
       })
   }
   

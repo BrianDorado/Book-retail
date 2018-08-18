@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default props => (
-    <div className='button-component'>
+    <button className='button-component' onClick={props.action}>
         {props.text}
-    </div>
+    </button>
 )
