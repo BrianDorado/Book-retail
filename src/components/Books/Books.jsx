@@ -1,11 +1,17 @@
 import React from "react";
+import axios from "axios";
 import Button from "../Button/Button";
 import marriageBand from "../../assets/img/marriage-band-1920-1080.jpg";
 import brideGroom from "../../assets/img/bride-groom1620-1080.jpg";
 import { SomeContext } from "../../context/testContext";
 
 export default class Books extends React.Component {
+  state = { books: [] }
   componentDidMount() {
+    // get book data from server
+    axios.get  ('/api/products/books')
+         .then ( ({ data: books }) => this.setState({ books }))
+         .catch( console.error )
     // hide scrollbars
     const textContainers = document.querySelectorAll(".text-container");
     // offsetWidth - clientWidth to determine size of scrollbar
@@ -54,10 +60,18 @@ export default class Books extends React.Component {
       document.querySelector('.books-component').classList.add('fadein');
     }
   }
+  addItemToCart = (bookId) => {
+
+    axios.put('/api/addtocart/' + bookId)
+         .then ( console.log   )
+         .catch( console.error )
+  }
   render() {
+    !(console.log)(this.state)
     return (
       <div className="books-component">
         <BookDisplay
+          checkoutFn={_=>this.addItemToCart(1)}
           title="Marital Therapy"
           text={
             <div>
@@ -98,6 +112,7 @@ export default class Books extends React.Component {
         />
         <div className="mediary-div"></div>
         <BookDisplay
+          checkoutFn={_=>this.addItemToCart(2)}
           title="What We Wish We'd Known Before Our Honeymoon"
           text={
             <div>
@@ -151,7 +166,7 @@ function BookDisplay(props) {
           <div className="text-container">
             <h1>{props.title}</h1>
             <SomeContext.Consumer>
-              {fn => <Button fn={_ => fn("call_modal_title", "call_modal_text")} text="add to cart" />}
+              {fn => <Button fn={_ => fn("Really Purchase?", "You will add this book to your cart", "CONFIRM", props.checkoutFn, "CANCEL", _=>document.body.classList.toggle('show-modal')) } text="add to cart" />}
             </SomeContext.Consumer>
             {props.text}
           </div>
