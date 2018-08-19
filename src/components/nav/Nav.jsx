@@ -23,10 +23,7 @@ export default props => {
         {/* put hamburger menu here */}
         <HamburgerMenu/>
         <div className="top-of-nav"> {/*first child*/}
-          <i className="fas fa-search" /> 
-          <span>search</span>
-          <Link to="/contact"><span>contact</span></Link>
-          <span>sign in</span>
+          <Link to="/contact"><span>contact us</span></Link>
         </div> 
         <div className='bottom-of-nav'>  {/*second child*/}
           <div>

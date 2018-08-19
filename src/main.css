@@ -215,7 +215,7 @@ a {
 .cart-component {
   min-height: calc(100vh - 121px);
   flex: auto;
-  padding: 1rem 3rem;
+  padding: 1rem 0;
   background: linear-gradient(#fff, #eee);
   font-family: 'Barlow Semi Condensed', sans-serif;
   color: #997e11; }
@@ -226,10 +226,12 @@ a {
     margin-bottom: 1rem; }
   .cart-component .cart-view-container {
     background: #eee;
-    padding: 3rem .5rem;
+    padding: 3rem 2.5rem;
     text-align: right;
-    margin-left: 80px;
-    border-radius: 3px; }
+    border-radius: 3px;
+    max-width: 800px;
+    min-width: 400px;
+    margin: 0 auto; }
 
 .cart-item-component, .checkout-display {
   padding: 1rem;
@@ -453,13 +455,15 @@ a {
   transition: all .3s ease-in-out;
   font-family: "Josefin Sans", sans-serif;
   text-align: center;
-  color: #fff; }
+  color: #fff;
+  pointer-events: none; }
   #drop-down-menu.grow {
     opacity: 1;
     display: block;
     border-bottom: 2px solid #1e4969;
     height: 236px;
-    padding: 1rem 0; }
+    padding: 1rem 0;
+    pointer-events: all; }
   #drop-down-menu h1 {
     font-weight: normal;
     transition: all .3s;

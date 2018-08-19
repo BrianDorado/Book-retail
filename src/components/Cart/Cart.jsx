@@ -2,6 +2,7 @@
 import React from "react";
 import axios from "axios";
 import Logo from '../../assets/img/blue-book.png';
+import Button from '../Button/Button';
 
 const stripePublicKey = process.env.REACT_APP_STRIPE_PUBLIC_KEY;
 
@@ -33,7 +34,7 @@ export default class Cart extends React.Component {
     amount: this.state.amount,
     currency: 'usd',
     locale: 'auto',
-    zipcode: true,
+    zipCode: true,
     name: 'Doug Brinley Books',
     description: 'Enjoy your purchase!',
     image: Logo,
@@ -81,14 +82,9 @@ export default class Cart extends React.Component {
     this.stripeForm.close();
   }
   render() {
-    let buttonLabel = this.state.haveToken ? 'Thank you!' : `Pay $${(this.state.amount / 100).toFixed(2)}`;
-    console.log(this.state);
     const { cart, books } = this.state;
     return (
       <div className="cart-component">
-        <span className="header-text">
-          your cart. <a href="#">sign in</a> to save your purchase history.
-        </span>
         <div className="cart-view-container">
           <div className="cart-item-component">
             <h3>{books[0].name}</h3>
@@ -128,12 +124,10 @@ export default class Cart extends React.Component {
 
           <section className="checkout-display">
             <p>total: ${this.getTotal()}</p>
-            <button
-            className={this.state.haveToken ? 'stripeButton-disabled' : 'stipeButton'}
-            onClick={this.state.haveToken ? null : this.onClickPay}
-          >
-            {buttonLabel}
-          </button>
+            <Button fn={this.state.haveToken ? null : this.onClickPay}
+            text={"Checkout"}
+            >
+          </Button>
           </section>
         </div>
       </div>
