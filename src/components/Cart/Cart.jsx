@@ -97,10 +97,11 @@ export default class Cart extends React.Component {
             <input
               type="number"
               value={cart.book1qty}
-              onChange={evt =>
+              onChange={evt =>{
+                if (evt.target.value < 0 || evt.target.value > 10) return 
                 this.setState({
                   cart: Object.assign({}, this.state.cart, { book1qty: evt.target.value })
-                })
+                })}
               }
               onBlur={this.handleChangeQty}
             />
@@ -114,10 +115,11 @@ export default class Cart extends React.Component {
             <input
               type="number"
               value={cart.book2qty}
-              onChange={evt =>
+              onChange={evt =>{
+                if (evt.target.value < 0 || evt.target.value > 10) return 
                 this.setState({
                   cart: Object.assign({}, this.state.cart, { book2qty: evt.target.value })
-                })
+                })}
               }
               onBlur={this.handleChangeQty}
             />
@@ -138,6 +140,4 @@ export default class Cart extends React.Component {
     );
   }
 }
-
-
 
