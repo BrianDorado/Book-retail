@@ -9,7 +9,7 @@ module.exports ={
             console.log(error);
         }
     },
-    stripePayment: (req,res, next) => {
+    stripePayment: (req) => {
         const stripe = require('stripe')(process.env.REACT_APP>STRIPE_PRIVATE_KEY)
         try {
             const charge = stripe.charges.create({
@@ -18,6 +18,7 @@ module.exports ={
                     currency: 'usd',
                     description: 'Stripe Checkout Test'
                 })
+                console.log('Stripe checkout Succeeded');
         } catch (error) {
             console.log('Stripe Payment Error:', error);
         }

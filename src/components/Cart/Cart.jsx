@@ -30,10 +30,10 @@ export default class Cart extends React.Component {
     this.stripeForm = window.StripeCheckout.configure({
     key: stripePublicKey,
     token: this.onToken,
-    amount: this.state.amount,
+    amount: this.getTotal,
     currency: 'usd',
     locale: 'auto',
-    zipcode: true,
+    zipCode: true,
     name: 'Doug Brinley Books',
     description: 'Enjoy your purchase!',
     image: Logo,
@@ -54,7 +54,7 @@ export default class Cart extends React.Component {
     this.setState({haveToken:true})
     token.card = void 0;
     const amount = this.state;
-    axios.post('/api/payment', { token, amount }).then(charge => console.log('Charge Response:', charge.data));
+    axios.post('/api/payment', { token, amount }).then(charge => console.log('Charge Response:', charge.data)).catch(console.error);
   };
 
   onClickPay = e => {
@@ -81,7 +81,7 @@ export default class Cart extends React.Component {
     this.stripeForm.close();
   }
   render() {
-    let buttonLabel = this.state.haveToken ? 'Thank you!' : `Pay $${(this.state.amount / 100).toFixed(2)}`;
+    let buttonLabel = this.state.haveToken ? 'Thank you!' : `Pay $${this.getTotal()}`;
     console.log(this.state);
     const { cart, books } = this.state;
     return (
@@ -138,6 +138,3 @@ export default class Cart extends React.Component {
     );
   }
 }
-
-
-
