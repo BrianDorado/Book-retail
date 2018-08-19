@@ -1,13 +1,33 @@
-import React from 'react';
-import axios from 'axios';
+
+import React from "react";
+import axios from "axios";
 import Logo from '../../assets/img/blue-book.png';
 
 const stripePublicKey = process.env.REACT_APP_STRIPE_PUBLIC_KEY;
 
-export default class Cart extends React.Component {
-  state = { haveToken: false, amount: 2000, email: '' };
 
-  stripeForm = window.StripeCheckout.configure({
+
+
+export default class Cart extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      haveToken: false,
+      amount: 2000,
+      email: '',
+      cart: [],
+      books: [
+        {
+          name: "Marital Therapy",
+          price: 12
+        },
+        {
+          name: "What We Wish We'd Known Before Our Honeymoon",
+          price: 12
+        }
+      ]
+    };
+    this.stripeForm = window.StripeCheckout.configure({
     key: stripePublicKey,
     token: this.onToken,
     amount: this.state.amount,
@@ -20,12 +40,15 @@ export default class Cart extends React.Component {
     shippingAddress: true,
     email: this.state.email
   });
-
-  create_order = (id, qty, total) => {
-    let new_Order = { book_id: id, qty: qty, price_total: total };
-    axios.post('/api/create/order', new_Order);
-  };
-
+  }
+  
+  componentDidMount() {
+    axios.get("/api/getcart").then(res =>
+      this.setState({
+        cart: res.data.cart
+      })
+    );
+  }
   onToken = token => {
     console.log('Stripe Token', token);
     this.setState({haveToken:true})
@@ -38,30 +61,83 @@ export default class Cart extends React.Component {
     e.preventDefault();
     this.stripeForm.open();
   };
-  componentDidMount(){
-    console.log('stripe key/nate', typeof stripePublicKey);
+  handleFocusChange = event => {
+    console.log(event.target);
+  };
+  handleChangeQty = event => {
+    axios
+      .put("/api/editcart", this.state.cart)
+      .then(({ data: cart }) => {
+        this.setState({ cart });
+      })
+      .catch(console.error);
+  };
+  getTotal = () => {
+    const { book1qty, book2qty } = this.state.cart;
+    const { books } = this.state;
+    return (book1qty * books[0].price + book2qty * books[1].price).toFixed(2);
+  };
+  componentWillUnmount() {
+    this.stripeForm.close();
   }
-
   render() {
     let buttonLabel = this.state.haveToken ? 'Thank you!' : `Pay $${(this.state.amount / 100).toFixed(2)}`;
+    console.log(this.state);
+    const { cart, books } = this.state;
     return (
       <div className="cart-component">
         <span className="header-text">
           your cart. <a href="#">sign in</a> to save your purchase history.
         </span>
-        <div className="cart-view-container">I am the cart container</div>
-        <form onSubmit={this.handleCheckout}>
-          <button
+        <div className="cart-view-container">
+          <div className="cart-item-component">
+            <h3>{books[0].name}</h3>
+
+            <label>quantity:</label>
+            <input
+              type="number"
+              value={cart.book1qty}
+              onChange={evt =>
+                this.setState({
+                  cart: Object.assign({}, this.state.cart, { book1qty: evt.target.value })
+                })
+              }
+              onBlur={this.handleChangeQty}
+            />
+            <p>price: ${(cart.book1qty * books[0].price).toFixed(2)}</p>
+          </div>
+
+          <div className="cart-item-component">
+            <h3>{books[1].name}</h3>
+
+            <label>quantity:</label>
+            <input
+              type="number"
+              value={cart.book2qty}
+              onChange={evt =>
+                this.setState({
+                  cart: Object.assign({}, this.state.cart, { book2qty: evt.target.value })
+                })
+              }
+              onBlur={this.handleChangeQty}
+            />
+            <p>price: ${(cart.book2qty * books[1].price).toFixed(2)}</p>
+          </div>
+
+          <section className="checkout-display">
+            <p>total: ${this.getTotal()}</p>
+            <button
             className={this.state.haveToken ? 'stripeButton-disabled' : 'stipeButton'}
             onClick={this.state.haveToken ? null : this.onClickPay}
           >
             {buttonLabel}
           </button>
-        </form>
+          </section>
+        </div>
       </div>
     );
   }
-  componentWillMount() {
-    this.stripeForm.close();
-  }
 }
+
+
+

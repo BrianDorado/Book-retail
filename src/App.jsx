@@ -13,6 +13,7 @@ class App extends Component {
     this.state = {
       modalData: {
         title: '',
+        text: '',
         string: '',
         btn1text: '',
         btn1fn: () => {},
