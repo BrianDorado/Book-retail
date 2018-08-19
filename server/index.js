@@ -4,8 +4,9 @@ const express = require('express'),
       bodyParser = require('body-parser'),
       session = require('express-session'),
       massive= require('massive'),
-      products = require('./Controllers/Products/product_controllers')
-      port = 4044,
+      products = require('./Controllers/Products/product_controllers'),
+      orders = require('./Controllers/Orders/orders_controller')
+      port = 4044;
       middleware = require('./middleware/middleware')
 
 
@@ -31,8 +32,8 @@ app.use(session({
 // ===== CUSTOM MIDDLEWARE ===== //
 app.use(middleware.checkForSession)
 
-
 // ========== ENDPOINTS ========== //
+// ===== !!!!API KEYS NEEDED!! ===== //
 
 // === GET REQUESTS === //
 app.get('/api/products/books', products.get_all_books)
@@ -44,14 +45,16 @@ app.put('/api/addtocart/:bookId', products.addToCart)
 app.put('/api/editcart', products.editCart)
 
 // === POST REQUESTS === //
-
+app.post('/api/create/order', orders.create_New_Order)
 
 
 // === DELETE REQUESTS === //
 
 // ===== Stripe ===== //
 
-app.post('/api/payment')
+app.post('/api/payment', orders.stripePayment )
+
+// ===== ServerPort ===== //
 
 app.listen(port || 4044, () => {
     console.log(`listening on port ${port}`)
