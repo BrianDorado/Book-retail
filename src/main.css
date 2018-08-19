@@ -260,24 +260,16 @@ a {
   transition: opacity .33s ease-in-out;
   z-index: 15;
   pointer-events: none; }
-  .modal-component .modal-btn {
-    padding: .4rem .8rem;
-    border: 1px solid rgba(0, 0, 0, 0.4);
-    cursor: pointer;
-    display: inline-block;
-    background: #eee;
-    transition: background .25s;
-    margin: 0 .5rem; }
   .modal-component h3 {
     margin-bottom: .4rem; }
   .modal-component h6 {
     margin-bottom: .8rem; }
-  .modal-component .modal-btn:hover {
-    background: #eee; }
   .show-modal .modal-component {
     top: 200px;
     opacity: 1;
     pointer-events: auto; }
+  .modal-component .button-component {
+    margin: 0 .5rem; }
 
 .opacity-component {
   position: absolute;
