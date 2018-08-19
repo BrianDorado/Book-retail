@@ -1,8 +1,14 @@
+#book-svg
+    fill: $blue
 .nav-component
+    overflow: hidden
+    z-index: 10
     height: 121px
     font-family: 'Josefin Sans', sans-serif
     color: #fff
     display: flex
+    position: relative
+    border-bottom: 2px solid darken($blue, 20)
     i, span
         cursor: pointer
     .nav-left
@@ -10,7 +16,7 @@
         background: #fff  
         color: #333
         display: flex
-        align-items: flex-end
+        align-items: flex-start
         justify-content: space-between
         
         font-size: 2rem
@@ -20,7 +26,7 @@
         position: relative
         left: -220px
         width: 0
-        transition: all .8s ease-in-out
+        transition: all .8s ease
         .is-mounted &
             padding: .5rem 1rem .5rem .5rem
             width: 220px
@@ -28,8 +34,8 @@
         span
             cursor: default
             margin-left: .4rem
-        span.highlight
-            background: dodgerblue
+        div.highlight
+            background: $blue
             color: #fff
             margin: 0
             padding-right: .4rem
@@ -37,8 +43,9 @@
 
 
     .nav-right
+        position: relative
         width: 100%
-        background: #b94321
+        background: $blue
         flex: 1 1 auto
         padding: .8rem 1rem
         display: flex

@@ -14,3 +14,10 @@ good font for filler text/ descriptions: font-family: Georgia,"Times New Roman",
 ## animations
 
 * left part of nav slide in on first page load
+
+
+## todo
+
+* media queries, mobile view, footer, slide out menu
+* contact us modal, nodemailer
+* fix ugly modal

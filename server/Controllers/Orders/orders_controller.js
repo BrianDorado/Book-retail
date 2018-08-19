@@ -8,5 +8,18 @@ module.exports ={
         } catch (error) {
             console.log(error);
         }
+    },
+    stripePayment: (req,res, next) => {
+        const stripe = require('stripe')(process.env.REACT_APP>STRIPE_PRIVATE_KEY)
+        try {
+            const charge = stripe.charges.create({
+                    source: req.body.token.id,
+                    amount: req.body.amount,
+                    currency: 'usd',
+                    description: 'Stripe Checkout Test'
+                })
+        } catch (error) {
+            console.log('Stripe Payment Error:', error);
+        }
     }
 }
