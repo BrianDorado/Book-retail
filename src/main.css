@@ -241,7 +241,8 @@ a {
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4); }
   .cart-item-component input[type='number'], .checkout-display input[type='number'] {
     display: inline;
-    margin-left: .5rem; }
+    margin-left: .5rem;
+    width: 40px; }
 
 .modal-component {
   font-family: 'Barlow Semi Condensed', sans-serif;

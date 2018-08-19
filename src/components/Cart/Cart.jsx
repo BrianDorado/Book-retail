@@ -25,9 +25,6 @@ export default class Cart extends React.Component {
       })
     );
   }
-  handleFocusChange = event => {
-    console.log(event.target);
-  };
   handleChangeQty = event => {
     axios
       .put("/api/editcart", this.state.cart)
@@ -57,10 +54,11 @@ export default class Cart extends React.Component {
             <input
               type="number"
               value={cart.book1qty}
-              onChange={evt =>
+              onChange={evt =>{
+                if (evt.target.value < 0 || evt.target.value > 10) return 
                 this.setState({
                   cart: Object.assign({}, this.state.cart, { book1qty: evt.target.value })
-                })
+                })}
               }
               onBlur={this.handleChangeQty}
             />
@@ -74,10 +72,11 @@ export default class Cart extends React.Component {
             <input
               type="number"
               value={cart.book2qty}
-              onChange={evt =>
+              onChange={evt =>{
+                if (evt.target.value < 0 || evt.target.value > 10) return 
                 this.setState({
                   cart: Object.assign({}, this.state.cart, { book2qty: evt.target.value })
-                })
+                })}
               }
               onBlur={this.handleChangeQty}
             />
@@ -93,14 +92,3 @@ export default class Cart extends React.Component {
   }
 }
 
-function CartItem(props) {
-  const { name, price, quantity, handleFocusChange } = props;
-  return (
-    <div className="cart-item-component">
-      <h3>{name}</h3>
-      <p>${price.toFixed(2)}</p>
-      <label> quantity: </label>
-      <input type="number" value={quantity} onBlur={handleFocusChange} />
-    </div>
-  );
-}
