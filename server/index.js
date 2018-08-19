@@ -36,24 +36,12 @@ app.use(middleware.checkForSession)
 
 // === GET REQUESTS === //
 app.get('/api/products/books', products.get_all_books)
-
+app.get('/api/getcart', products.getCart)
 
 // === PUT REQUESTS === //
-app.put('/api/addtocart/:bookId', (req, res)=>{
-    console.log('__addtocart endpoint__')
 
-    console.log(' ordering book: ' + req.params.bookId)
-    const { bookId } = req.params
-    if (bookId==1)
-        req.session.user.cart.book1qty ++
-    if (bookId==2)
-        req.session.user.cart.book2qty ++
-    console.log('req,session: ', req.session)
-    res.status(200).send({
-        usercart: req.session.user.cart
-    })
-})
-
+app.put('/api/addtocart/:bookId', products.addToCart)
+app.put('/api/editcart', products.editCart)
 
 // === POST REQUESTS === //
 

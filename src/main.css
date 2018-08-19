@@ -231,6 +231,18 @@ a {
     margin-left: 80px;
     border-radius: 3px; }
 
+.cart-item-component, .checkout-display {
+  padding: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+  text-align: center;
+  background: #eee;
+  margin-bottom: 1rem;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4); }
+  .cart-item-component input[type='number'], .checkout-display input[type='number'] {
+    display: inline;
+    margin-left: .5rem; }
+
 .modal-component {
   font-family: 'Barlow Semi Condensed', sans-serif;
   color: #997e11;

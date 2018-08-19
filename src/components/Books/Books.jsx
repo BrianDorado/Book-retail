@@ -63,8 +63,9 @@ export default class Books extends React.Component {
   addItemToCart = (bookId) => {
 
     axios.put('/api/addtocart/' + bookId)
-         .then ( console.log   )
+         .then ( _=>document.body.classList.toggle('show-modal') )
          .catch( console.error )
+    
   }
   render() {
     !(console.log)(this.state)
