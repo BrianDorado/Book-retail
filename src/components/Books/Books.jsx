@@ -149,6 +149,9 @@ export default class Books extends React.Component {
 }
 
 function BookDisplay(props) {
+  const addToCart = id => {
+    console.log('added to cart');
+  };
   return (
     <section>
       <div className="bg-image" />

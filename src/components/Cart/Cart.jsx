@@ -1,10 +1,20 @@
+
 import React from "react";
 import axios from "axios";
+import Logo from '../../assets/img/blue-book.png';
+
+const stripePublicKey = process.env.REACT_APP_STRIPE_PUBLIC_KEY;
+
+
+
 
 export default class Cart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      haveToken: false,
+      amount: 2000,
+      email: '',
       cart: [],
       books: [
         {
@@ -17,7 +27,21 @@ export default class Cart extends React.Component {
         }
       ]
     };
+    this.stripeForm = window.StripeCheckout.configure({
+    key: stripePublicKey,
+    token: this.onToken,
+    amount: this.state.amount,
+    currency: 'usd',
+    locale: 'auto',
+    zipcode: true,
+    name: 'Doug Brinley Books',
+    description: 'Enjoy your purchase!',
+    image: Logo,
+    shippingAddress: true,
+    email: this.state.email
+  });
   }
+  
   componentDidMount() {
     axios.get("/api/getcart").then(res =>
       this.setState({
@@ -25,6 +49,21 @@ export default class Cart extends React.Component {
       })
     );
   }
+  onToken = token => {
+    console.log('Stripe Token', token);
+    this.setState({haveToken:true})
+    token.card = void 0;
+    const amount = this.state;
+    axios.post('/api/payment', { token, amount }).then(charge => console.log('Charge Response:', charge.data));
+  };
+
+  onClickPay = e => {
+    e.preventDefault();
+    this.stripeForm.open();
+  };
+  handleFocusChange = event => {
+    console.log(event.target);
+  };
   handleChangeQty = event => {
     axios
       .put("/api/editcart", this.state.cart)
@@ -38,7 +77,11 @@ export default class Cart extends React.Component {
     const { books } = this.state;
     return (book1qty * books[0].price + book2qty * books[1].price).toFixed(2);
   };
+  componentWillUnmount() {
+    this.stripeForm.close();
+  }
   render() {
+    let buttonLabel = this.state.haveToken ? 'Thank you!' : `Pay $${(this.state.amount / 100).toFixed(2)}`;
     console.log(this.state);
     const { cart, books } = this.state;
     return (
@@ -85,6 +128,12 @@ export default class Cart extends React.Component {
 
           <section className="checkout-display">
             <p>total: ${this.getTotal()}</p>
+            <button
+            className={this.state.haveToken ? 'stripeButton-disabled' : 'stipeButton'}
+            onClick={this.state.haveToken ? null : this.onClickPay}
+          >
+            {buttonLabel}
+          </button>
           </section>
         </div>
       </div>
