@@ -1,13 +1,9 @@
-
 import React from "react";
 import axios from "axios";
-import Logo from '../../assets/img/blue-book.png';
-import Button from '../Button/Button';
+import Logo from "../../assets/img/blue-book.png";
+import Button from "../Button/Button";
 
-const stripePublicKey = process.env.REACT_APP_STRIPE_PUBLIC_KEY;
-
-
-
+const stripePublicKey = process.env.REACT_APP_STRIPE_TEST_PK;
 
 export default class Cart extends React.Component {
   constructor(props) {
@@ -15,7 +11,7 @@ export default class Cart extends React.Component {
     this.state = {
       haveToken: false,
       amount: 2000,
-      email: '',
+      email: "",
       cart: [],
       books: [
         {
@@ -28,21 +24,26 @@ export default class Cart extends React.Component {
         }
       ]
     };
+
     this.stripeForm = window.StripeCheckout.configure({
-    key: stripePublicKey,
-    token: this.onToken,
-    amount: this.state.amount,
-    currency: 'usd',
-    locale: 'auto',
-    zipCode: true,
-    name: 'Doug Brinley Books',
-    description: 'Enjoy your purchase!',
-    image: Logo,
-    shippingAddress: true,
-    email: this.state.email
-  });
+      key: stripePublicKey,
+      token: this.onToken,
+      amount: parseInt(
+        String(this.getTotal())
+          .split(".")
+          .join("")
+      ), // format for $20.00 -> 2000
+      currency: "usd",
+      locale: "auto",
+      zipCode: true,
+      name: "Doug Brinley Books",
+      description: "Enjoy your purchase!",
+      image: Logo,
+      shippingAddress: true,
+      email: this.state.email
+    });
   }
-  
+
   componentDidMount() {
     axios.get("/api/getcart").then(res =>
       this.setState({
@@ -50,12 +51,52 @@ export default class Cart extends React.Component {
       })
     );
   }
-  onToken = token => {
-    console.log('Stripe Token', token);
-    this.setState({haveToken:true})
+  onToken = (token, shippingInfo) => {
+    console.log('shipping info: ', shippingInfo)
+    const { cart } = this.state
+    console.log("Stripe Token", token);
+    this.setState({ haveToken: true });
     token.card = void 0;
-    const amount = this.state;
-    axios.post('/api/payment', { token, amount }).then(charge => console.log('Charge Response:', charge.data));
+    const amount = parseInt(
+      String(this.getTotal())
+        .split(".")
+        .join("")
+    );
+    const idempotencyKey = this.generateIdempotencyKey();
+    axios
+      .post("/api/payment", { token, amount, idempotencyKey, cart })
+      .then(result => {
+        // call modal
+        this.props.callModal('Transaction Complete', `
+          You're order was completed.
+          An email receipt will be sent to ${token.email}.
+        
+        `, 'OK', _=>document.body.classList.toggle('show-modal'))
+        // clear cart
+        this.setState({
+          cart: {
+            book1qty: 0,
+            book2qty: 0
+          }
+        })
+      });
+  };
+
+  generateIdempotencyKey = () => {
+    // 12 chars long random key
+    const length = 12;
+    // Use UTF-16 values between 48 and 122
+    const UTFmin = 48, UTFmax = 122;
+
+    function genRan() {
+      return Math.floor(Math.random() * (UTFmax - UTFmin)) + UTFmin;
+    }
+
+    const UTFarr = [];
+    for (let i = 0; i < length; i++) {
+      UTFarr.push(genRan());
+    }
+    return String.fromCodePoint(...UTFarr);
   };
 
   onClickPay = e => {
@@ -82,6 +123,7 @@ export default class Cart extends React.Component {
     this.stripeForm.close();
   }
   render() {
+    console.log(this.props)
     const { cart, books } = this.state;
     return (
       <div className="cart-component">
@@ -93,12 +135,12 @@ export default class Cart extends React.Component {
             <input
               type="number"
               value={cart.book1qty}
-              onChange={evt =>{
-                if (evt.target.value < 0 || evt.target.value > 10) return 
+              onChange={evt => {
+                if (evt.target.value < 0 || evt.target.value > 10) return;
                 this.setState({
                   cart: Object.assign({}, this.state.cart, { book1qty: evt.target.value })
-                })}
-              }
+                });
+              }}
               onBlur={this.handleChangeQty}
             />
             <p>price: ${(cart.book1qty * books[0].price).toFixed(2)}</p>
@@ -111,12 +153,12 @@ export default class Cart extends React.Component {
             <input
               type="number"
               value={cart.book2qty}
-              onChange={evt =>{
-                if (evt.target.value < 0 || evt.target.value > 10) return 
+              onChange={evt => {
+                if (evt.target.value < 0 || evt.target.value > 10) return;
                 this.setState({
                   cart: Object.assign({}, this.state.cart, { book2qty: evt.target.value })
-                })}
-              }
+                });
+              }}
               onBlur={this.handleChangeQty}
             />
             <p>price: ${(cart.book2qty * books[1].price).toFixed(2)}</p>
@@ -124,14 +166,10 @@ export default class Cart extends React.Component {
 
           <section className="checkout-display">
             <p>total: ${this.getTotal()}</p>
-            <Button fn={this.state.haveToken ? null : this.onClickPay}
-            text={"Checkout"}
-            >
-          </Button>
+            <Button fn={this.state.haveToken ? null : this.onClickPay} text={"Checkout"} />
           </section>
         </div>
       </div>
     );
   }
 }
-
