@@ -170,7 +170,7 @@ function BookDisplay(props) {
           <div className="text-container">
             <h1>{props.title}</h1>
             <SomeContext.Consumer>
-              {fn => <Button fn={_ => fn("Really Purchase?", "You will add this book to your cart", "CONFIRM", props.checkoutFn, "CANCEL", _=>document.body.classList.toggle('show-modal')) } text="add to cart" />}
+              {fn => <Button fn={_ => fn("Add to Cart", `this will add ${props.title} to your cart.`, "CONFIRM", props.checkoutFn, "CANCEL", _=>document.body.classList.toggle('show-modal')) } text="add to cart" />}
             </SomeContext.Consumer>
             {props.text}
           </div>

@@ -5,8 +5,9 @@ const express = require('express'),
       session = require('express-session'),
       massive= require('massive'),
       products = require('./Controllers/Products/product_controllers'),
-      orders = require('./Controllers/Orders/orders_controller')
-      port = 4044;
+      orders = require('./Controllers/Orders/orders_controller'),
+      nodemailer = require('nodemailer'),
+      port = 4044,
       middleware = require('./middleware/middleware')
 
 
@@ -36,23 +37,23 @@ app.use(middleware.checkForSession)
 // ===== !!!!API KEYS NEEDED!! ===== //
 
 // === GET REQUESTS === //
-app.get('/api/products/books', products.get_all_books)
+app.get('/api/products/books', products.getAllBooks)
 app.get('/api/getcart', products.getCart)
-
+app.get('/api/testmailer', orders.testMail)
 // === PUT REQUESTS === //
 
 app.put('/api/addtocart/:bookId', products.addToCart)
 app.put('/api/editcart', products.editCart)
 
 // === POST REQUESTS === //
-app.post('/api/create/order', orders.create_New_Order)
+app.post('/api/create/order', orders.createNewOrder)
 
 
 // === DELETE REQUESTS === //
 
 // ===== Stripe ===== //
 
-app.post('/api/payment', orders.stripePayment )
+app.post( '/api/payment', orders.stripePayment )
 
 // ===== ServerPort ===== //
 
