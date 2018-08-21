@@ -15,7 +15,8 @@ export default class About extends React.Component {
       else setTimeout(fadeInComponent, 1200);
     };
     function fadeInComponent() {
-      document.querySelector('.about-component').classList.add('fadein')
+      let component = document.querySelector('.about-component')
+      if (component) component.classList.add('fadein')
     }
   }
 

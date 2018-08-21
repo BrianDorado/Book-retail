@@ -16,6 +16,6 @@ export default (
     <Route path="/cart" render={_ => <SomeContext.Consumer>{context => <Cart callModal={context} />}</SomeContext.Consumer>} />
     <Route path="/contact" component={Contact} />
 
-    <Route path="/other-stuff" component={Books} />
+    <Route path="/books" component={Books} />
   </Switch>
 );

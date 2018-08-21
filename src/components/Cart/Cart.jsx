@@ -166,7 +166,7 @@ export default class Cart extends React.Component {
 
           <section className="checkout-display">
             <p>total: ${this.getTotal()}</p>
-            <Button fn={this.getTotal() > 0 ? this.onClickPay: null} text={"Checkout"} />
+            <Button fn={this.getTotal() > 0 ? this.onClickPay: _=>alert('Your cart is empty.')} text={"Checkout"} />
           </section>
         </div>
       </div>

@@ -15,7 +15,8 @@ export default class Landing extends React.Component {
       else setTimeout(fadeInComponent, 1200)
     };
     function fadeInComponent(){
-      document.querySelector('.landing-component').classList.add('fadein')
+      let component = document.querySelector('.landing-component')
+      if (component) component.classList.add('fadein')
     }
   }
 

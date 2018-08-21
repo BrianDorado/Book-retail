@@ -57,7 +57,8 @@ export default class Books extends React.Component {
       } else setTimeout(fadeInComponent,delay)
     }
     function fadeInComponent() {
-      document.querySelector('.books-component').classList.add('fadein');
+      let component = document.querySelector('.books-component')
+      if (component) component.classList.add('fadein');
     }
   }
   addItemToCart = (bookId) => {
