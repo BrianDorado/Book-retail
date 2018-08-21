@@ -9,6 +9,7 @@ module.exports = {
       console.log(error);
     }
   },
+  // _________________________stripe payment endpoint____________________________________
   stripePayment: (req, res, next) => {
     const { cart, token, amount, idempotencyKey } = req.body;
     const stripe = require("stripe")(process.env.STRIPE_TEST_SK);
@@ -17,7 +18,7 @@ module.exports = {
         amount,
         currency: "usd",
         source: token.id,
-        description: "stripe checkout test"
+        description: "Brinley Books payment " + new Date().toDateString()
       },
       {
         idempotency_key: idempotencyKey
@@ -27,7 +28,8 @@ module.exports = {
         const db = req.app.get("db");
         const transactionRecord = JSON.stringify(charge);
         const { book1qty: maritalTherapyQty, book2qty: whatWeWishWedKnownQty } = cart;
-        db.Orders.createOrderRecord([transactionRecord, JSON.stringify({ maritalTherapyQty, whatWeWishWedKnownQty })])
+        const date = new Date().toISOString()
+        db.Orders.createOrderRecord([transactionRecord, JSON.stringify({ maritalTherapyQty, whatWeWishWedKnownQty }), date])
           .then(_ => {
             req.session.user.cart = {
               book1qty: 0,
@@ -42,7 +44,7 @@ module.exports = {
                 address_state:  charge.source.address_state,
                 address_zip:    charge.source.address_zip,
                 email:          token.email,
-                booksOrderd:    { maritalTherapyQty, whatWeWishWedKnownQty}
+                booksOrdered:    { maritalTherapyQty, whatWeWishWedKnownQty}
 
             }
             sendEmail(res, token.email, charge.id, customerInfo)
@@ -51,6 +53,7 @@ module.exports = {
           .catch(console.error);
       }
     );
+    // ____________________stripe payment end_________________________________________________
   },
   testMail: (req, res, next) => {
     sendEmail(res, "nathanryan001@gmail.com");
@@ -79,26 +82,27 @@ function sendEmail(res, customerEmail, orderId, customerInfo) {
       <div style="padding: 12px; background: dodgerblue; color: white; line-height:20px;">
         <h3>Order Confirmation</h3>
         <hr>
-        <p>
-        Thank you for your order. You're order will be shipped to you soon.
-        <br> 
-        Your order ID is: <strong>${orderId}</strong>
-        <br>
-        Your order will be shipped to the following address
-        <blockquote>
-            ${customerInfo.address_line1}<br>
-            ${customerInfo.address_line2}<br>
-            ${customerInfo.address_city}, ${customerInfo.address_state}<br>
-            ${customerInfo.address_zip}
-        </blockquote>
-        <br>
-        <h3> Order Details </h3>
-        <hr>
-        ${customerInfo.maritalTherapyQty>0? 'Marital Therapy: '+ customerInfo.maritalTherapyQty: null}<br>
-        ${customerInfo.whatWeWishWedKnownQty>0? 'What We Wish We\'d Known Before Our Honeymoon: '+customerInfo.whatWeWishWedKnownQty: null}<br>
-        <hr>
-        <br>
-        If you have concerns or questions about your order, you may reply to this email.
+        <p style="color:white !important">
+            Thank you for your order. You're order will be shipped to you soon.
+            <br> 
+            Your order ID is: <strong>${orderId}</strong>
+            <br>
+            Your order will be shipped to the following address
+            <blockquote>
+                ${customerInfo.address_line1}<br>
+                ${customerInfo.address_line2?customerInfo.address_line2:''}<br>
+                ${customerInfo.address_city}, ${customerInfo.address_state}<br>
+                ${customerInfo.address_zip}
+            </blockquote>
+            <br>
+            <h3> Order Details </h3>
+            <hr>
+            ${customerInfo.booksOrdered.maritalTherapyQty>0? 'Marital Therapy: quantity '+ customerInfo.booksOrdered.maritalTherapyQty: ''}<br>
+            ${customerInfo.booksOrdered.whatWeWishWedKnownQty>0? 'What We Wish We\'d Known Before Our Honeymoon: quantity '+customerInfo.booksOrdered.whatWeWishWedKnownQty: ''}<br>
+            Amount payed: ${convertCentsToDollars(customerInfo.amount)}
+            <hr>
+            <br>
+            If you have concerns or questions about your order, you may reply to this email.
         </p>
       </div>
       `
@@ -106,11 +110,11 @@ function sendEmail(res, customerEmail, orderId, customerInfo) {
   transporter.sendMail(message, error=>{if(error)console.log('__mailer_error__,',error)})
   let invoice = {
       from: 'brinleybooks@gmx.com',
-      to: process.env.invoiceEmail,
+      to: [ process.env.invoiceEmail1, process.env.invoiceEmail2 ], 
       subject: 'BRINLEY BOOKS ORDER MESSAGE',
       html: `
       <div style="padding: 12px; background: dodgerblue; color: white; lineHeight:20px;">
-        <p>
+        <p style="color:white !important">
             orderID: <strong>${orderId}</strong>
             <br>
             customer email: ${customerInfo.email} 
@@ -118,19 +122,25 @@ function sendEmail(res, customerEmail, orderId, customerInfo) {
             customer address:<br>
             <blockquote>
                 ${customerInfo.address_line1}<br>
-                ${customerInfo.address_line2}<br>
+                ${customerInfo.address_line2?customerInfo.address_line2:''}<br>
                 ${customerInfo.address_city}, ${customerInfo.address_state}<br>
                 ${customerInfo.address_zip}
             </blockquote>
             <br>
-            order details:<br>
-            Marital Therapy: ${customerInfo.maritalTherapyQty}<br>
-            What We Wish We'd Known...: ${customerInfo.whatWeWishWedKnownQty}<br>
-            Amount paid: ${customerInfo.amount}
+            ORDER DETAILS:<br>
+            Marital Therapy: ${customerInfo.booksOrdered.maritalTherapyQty}<br>
+            What We Wish We'd Known...: ${customerInfo.booksOrdered.whatWeWishWedKnownQty}<br>
+            Amount paid: ${convertCentsToDollars(customerInfo.amount)}
             <br>
         </p>
       </div>
       `
   }
   transporter.sendMail(invoice, error=>{if(error)console.log('__mailer_error__',error)})
+}
+
+function convertCentsToDollars(int){
+    int = String(int).split('');
+    int.splice(-2,0,'.');
+    return int.join('');
 }

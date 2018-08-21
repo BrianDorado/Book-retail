@@ -1,0 +1,1 @@
+create table order_history (id serial primary key, order_record text, qty text, date text)
