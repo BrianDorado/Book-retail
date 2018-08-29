@@ -54,6 +54,11 @@ app.post('/api/create/order', orders.create_New_Order)
 
 app.post('/api/payment', orders.stripePayment )
 
+// ===== BrowserRouter ===== //
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../build/index.html'));
+});
+
 // ===== ServerPort ===== //
 
 app.listen(port || 4044, () => {
