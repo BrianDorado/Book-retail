@@ -8,7 +8,8 @@ const express = require('express'),
       orders = require('./Controllers/Orders/orders_controller'),
       nodemailer = require('nodemailer'),
       port = 4044,
-      middleware = require('./middleware/middleware')
+      middleware = require('./middleware/middleware'),
+      path = require('path')
 
 
 require('dotenv').config()
@@ -54,6 +55,11 @@ app.post('/api/create/order', orders.createNewOrder)
 // ===== Stripe ===== //
 
 app.post( '/api/payment', orders.stripePayment )
+
+// ===== BrowserRouter ==== //
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../build/index.html'));
+});
 
 // ===== ServerPort ===== //
 
