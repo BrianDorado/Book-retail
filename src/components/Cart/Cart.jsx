@@ -16,10 +16,32 @@ export default class Cart extends React.Component {
       books: [
         {
           name: "Marital Therapy",
+          author: "Douglas E. Brinley",
           price: 12
         },
         {
           name: "What We Wish We'd Known Before Our Honeymoon",
+          author: "Douglas E. Brinley",
+          price: 12
+        },
+        {
+          name: "The Snowman Who Saw Christmas",
+          author: "Geri Brinley",
+          price: 12
+        },
+        {
+          name: "America in Peril: Ten Stages in the Destruction of a Promised Land",
+          author: "Douglas E. Brinley",
+          price: 12
+        },
+        {
+          name: "SINGLE in a Married Church",
+          author: "Douglas E. Brinley and Anne Woelkers",
+          price: 12
+        },
+        {
+          name: "Marital \"Tune-up Kit\"",
+          author: "Doug Brinley and Dave Brinley",
           price: 12
         }
       ]
@@ -45,6 +67,7 @@ export default class Cart extends React.Component {
   }
 
   componentDidMount() {
+    // get cart
     axios.get("/api/getcart").then(res =>
       this.setState({
         cart: res.data.cart

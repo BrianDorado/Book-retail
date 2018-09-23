@@ -1,5 +1,6 @@
 module.exports = {
   createNewOrder: (req, res) => {
+    // not in use
     const dbInstance = req.app.get("db");
     const { book_id, qty, price_total } = req.body;
 

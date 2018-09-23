@@ -18,6 +18,6 @@ good font for filler text/ descriptions: font-family: Georgia,"Times New Roman",
 
 ## todo
 
-* media queries, mobile view, footer, slide out menu
-* contact us modal, nodemailer
-* fix ugly modal
+* implement Google analytics
+* add other books 
+* restructure DB table order_history

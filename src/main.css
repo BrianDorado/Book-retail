@@ -337,56 +337,24 @@ a {
   opacity: 0;
   display: flex;
   flex-direction: column; }
-  .books-component .text-container {
-    overflow: auto;
-    max-height: 100%; }
-  .books-component a {
-    color: #b6d4ea; }
-  .books-component .book-section-container {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    max-width: 1100px;
-    margin: 0 auto; }
-  .books-component section {
+  .books-component SECTION {
     flex: auto;
     padding: 2rem;
-    position: relative; }
-    .books-component section .bg-image {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      z-index: -10; }
-    .books-component section:first-child {
-      height: auto; }
-      .books-component section:first-child .text-container {
-        margin-left: auto; }
-      .books-component section:first-child .bg-image {
-        background: url("./assets/img/marriage-band-1920-1080.jpg");
-        background-attachment: fixed;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        filter: blur(0px) grayscale(25%); }
-    .books-component section:nth-child(3) {
-      height: auto; }
-      .books-component section:nth-child(3) .text-container {
-        margin: 0; }
-      .books-component section:nth-child(3) .bg-image {
-        background: url("./assets/img/bride-groom1620-1080.jpg");
-        background-attachment: fixed;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        filter: blur(0px) grayscale(25%); }
-  .books-component .mediary-div {
-    height: 4rem;
-    z-index: 10;
-    background: #1e4969;
-    border-top: 4px solid #1e4969;
-    border-bottom: 4px solid #1e4969; }
+    position: relative;
+    font-family: "Josefin Sans", sans-serif;
+    border: 1px solid gray;
+    background: rgba(0, 0, 0, 0.2); }
+    .books-component SECTION .author {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: .8rem;
+      padding: 1rem 0; }
+    .books-component SECTION .description {
+      padding: .5rem 0;
+      font-family: Georgia, "Times New Roman", Times, serif; }
+      .books-component SECTION .description .read-more {
+        font-size: .6rem;
+        color: #54879d;
+        cursor: pointer; }
 
 .button-component {
   font-family: "Barlow Semi Condensed", sans-serif;

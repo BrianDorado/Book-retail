@@ -9,8 +9,7 @@ const express = require('express'),
       nodemailer = require('nodemailer'),
       port = 4044,
       middleware = require('./middleware/middleware'),
-      path = require('path')
-
+      path = require('path');
 
 require('dotenv').config()
 

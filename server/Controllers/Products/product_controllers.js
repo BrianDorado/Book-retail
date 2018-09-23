@@ -1,7 +1,8 @@
+const books = require('./bookList');
+
 module.exports = {
   getAllBooks: (req, res) => {
-    const dbInstance = req.app.get("db");
-    dbInstance.products.get_All_Books().then(products => res.status(200).send(products));
+    res.status(200).send(books);
   },
   addToCart: (req, res) => {
     const { cart } = req.session.user;
