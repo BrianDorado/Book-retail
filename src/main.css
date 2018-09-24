@@ -273,6 +273,17 @@ a {
   .modal-component .button-component {
     margin: 0 .5rem; }
 
+.ReactModal__Content {
+  opacity: 0;
+  transition: all .3s ease; }
+
+.ReactModal__Content.ReactModal__Content--after-open {
+  color: #997e11;
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  background: linear-gradient(#fff, #eee);
+  text-align: center;
+  opacity: 1; }
+
 .opacity-component {
   position: absolute;
   top: 0;
@@ -468,5 +479,6 @@ a {
 
 .ReactModal__Body--open {
   overflow-y: hidden; }
-  .ReactModal__Body--open .nav-component {
-    pointer-events: none; }
+  .ReactModal__Body--open .nav-component, .ReactModal__Body--open .footer-component {
+    pointer-events: none;
+    filter: opacity(25%); }

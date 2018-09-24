@@ -41,7 +41,7 @@ class App extends Component {
     this.setState({modalOpen: true})
   }
   afterOpenModal = () => {
-    this.subtitle.style.color = 'red';
+    // this.subtitle.style.color = 'red';
   }
   closeModal = () => {
     this.setState({ modalOpen: false })
