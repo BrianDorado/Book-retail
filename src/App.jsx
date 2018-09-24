@@ -2,10 +2,23 @@ import React, { Component } from "react";
 import Nav from "./components/nav/Nav";
 import routes from "./routes";
 import Opacity from "./components/Opacity/Opacity";
-import Modal from "./components/Modal/Modal";
 import { SomeContext } from "./context/testContext";
 import Footer from "./components/Footer/Footer";
 import DropdownMenu from "./components/DropdownMenu/dropdownMenu";
+import Modal from 'react-modal';
+
+const modalStyles = {
+  content : {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)'
+  }
+}
+
+Modal.setAppElement('#root')
 
 class App extends Component {
   constructor() {
@@ -19,10 +32,20 @@ class App extends Component {
         btn1fn: () => {},
         btn2text: '',
         btn2fn: () => {}
-      }
+      },
+      modalOpen: false
     };
   }
 
+  openModal = ()=> {
+    this.setState({modalOpen: true})
+  }
+  afterOpenModal = () => {
+    this.subtitle.style.color = 'red';
+  }
+  closeModal = () => {
+    this.setState({ modalOpen: false })
+  }
   componentDidMount() {
     setTimeout(function() {
       document.body.classList.add("is-mounted");
@@ -85,10 +108,26 @@ class App extends Component {
   render() {
     const { title, text, btn1text, btn1fn, btn2text, btn2fn } = this.state.modalData
     return (
-      <SomeContext.Provider value={this.callModal}>
+      <SomeContext.Provider value={this.openModal}>
         <div className="App">
-          <Modal title={title} text={text} btn1text={btn1text} btn1fn={btn1fn} btn2text={btn2text} btn2fn={btn2fn} />
-          <Opacity />
+        <Modal
+          isOpen={this.state.modalOpen}
+          onAfterOpen={this.afterOpenModal}
+          onRequestClose={this.closeModal}
+          style={modalStyles}
+          contentLabel="Example Modal .. . "
+        >
+        <h2 ref={subtitle => this.subtitle = subtitle}>Hello</h2>
+        <button onClick={this.closeModal}>close</button>
+        <div>I am a modal</div>
+        <form>
+          <input />
+          <button>tab navigation</button>
+          <button>stays</button>
+          <button>inside</button>
+          <button>the modal</button>
+        </form>
+      </Modal>
           <Nav />
           <DropdownMenu /> {/* <-- this is the drop down menu */}
           {routes}

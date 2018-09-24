@@ -465,3 +465,8 @@ a {
   .books-component section {
     padding: 2rem 0;
     height: auto !important; } }
+
+.ReactModal__Body--open {
+  overflow-y: hidden; }
+  .ReactModal__Body--open .nav-component {
+    pointer-events: none; }

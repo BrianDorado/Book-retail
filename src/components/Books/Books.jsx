@@ -130,17 +130,17 @@ class BookContainer extends React.Component {
   constructor(props) {
     super(props);
     this.description = React.createRef();
-    this.state = { showFullDescription: false }
+    this.state = { showFullDescription: false };
   }
 
-  expand = ((e) => {
-    this.setState(prevState=>({
+  expand = e => {
+    this.setState(prevState => ({
       showFullDescription: !prevState.showFullDescription
-    }))
+    }));
     e.textContent = e.textContent === "view more" ? "view less" : "view more";
-  })
+  };
   render() {
-    console.log(this.state)
+    console.log(this.state);
     let {
       checkoutFn,
       book: { name, description, author, price }
@@ -151,18 +151,26 @@ class BookContainer extends React.Component {
         <p className="author">{author}</p>
         <hr />
         <p className="description" ref={this.description}>
-          {
-            this.state.showFullDescription ? 
-            description : 
-            description.split('\n')[0]
-          }
-          <br/>{
-          description.split('\n').length > 1 && <span className="read-more" onClick={e=> this.expand(e.target)}>
-            view more
-          </span>}
+          {this.state.showFullDescription ? description : description.split("\n")[0]}
+          <br />
+          {description.split("\n").length > 1 && (
+            <span className="read-more" onClick={e => this.expand(e.target)}>
+              view more
+            </span>
+          )}
         </p>
-        <hr /><br />
-        <Button text={"Add to Cart"} fn={checkoutFn} />
+        <hr />
+        <br />
+        <SomeContext.Consumer>
+          {fn => (
+            <Button
+              text={"Add to Cart"}
+              fn={() => {
+                fn();
+              }}
+            />
+          )}
+        </SomeContext.Consumer>
       </section>
     );
   }
