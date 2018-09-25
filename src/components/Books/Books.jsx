@@ -23,29 +23,30 @@ export default class Books extends React.Component {
     // textContainerWrappers[0].style.marginLeft = "auto";
     // textContainerWrappers[1].style.marginLeft = "-" + scrollbarOffset + "px";
 
-    const bgImg1 = new Image();
-    const bgImg2 = new Image();
-    bgImg1.src = marriageBand;
-    bgImg2.src = brideGroom;
+    // const bgImg1 = new Image();
+    // const bgImg2 = new Image();
+    // bgImg1.src = marriageBand;
+    // bgImg2.src = brideGroom;
 
-    let bg1Loaded = false;
-    let bg2Loaded = false;
-    console.time("book-imgs-load");
-    bgImg1.onload = function() {
-      bg1Loaded = true;
-      if (bg2Loaded) {
-        console.timeEnd("book-imgs-load");
-        firstLoadDelay(1200);
-      }
-    };
-    bgImg2.onload = function() {
-      bg2Loaded = true;
-      if (bg1Loaded) {
-        console.timeEnd("book-imgs-load");
-        firstLoadDelay(1200);
-      }
-    };
-    const bgImageElements = document.querySelectorAll(".bg-image");
+    // let bg1Loaded = false;
+    // let bg2Loaded = false;
+    // console.time("book-imgs-load");
+    // bgImg1.onload = function() {
+    //   bg1Loaded = true;
+    //   if (bg2Loaded) {
+    //     console.timeEnd("book-imgs-load");
+    //     firstLoadDelay(1200);
+    //   }
+    // };
+    // bgImg2.onload = function() {
+    //   bg2Loaded = true;
+    //   if (bg1Loaded) {
+    //     console.timeEnd("book-imgs-load");
+    //     firstLoadDelay(1200);
+    //   }
+    // };
+    firstLoadDelay(1200);
+    // const bgImageElements = document.querySelectorAll(".bg-image");
     // bgImageElements[0].style.backgroundImage = "url(" + bgImg1 + ")";
     // console.log(' bg 2 ', bgImg2)
     // bgImageElements[1].style.backgroundImage = "url(" + bgImg2 + ")";
@@ -60,6 +61,7 @@ export default class Books extends React.Component {
       if (component) component.classList.add("fadein");
     }
   }
+
   addItemToCart = bookId => {
     axios
       .put("/api/addtocart/" + bookId)
@@ -80,51 +82,51 @@ export default class Books extends React.Component {
   }
 }
 
-function BookDisplay(props) {
-  const addToCart = id => {
-    console.log("added to cart");
-  };
-  return (
-    <section>
-      <div className="bg-image" />
-      <div className="book-section-container">
-        <div
-          className="text-container-wrapper"
-          style={{
-            width: "550px",
-            overflow: "hidden",
-            height: "100%",
-            position: "relative",
-            display: "flex",
-            alignItems: "center"
-          }}
-        >
-          <div className="text-container">
-            <h1>{props.title}</h1>
-            <SomeContext.Consumer>
-              {fn => (
-                <Button
-                  fn={_ =>
-                    fn(
-                      "Add to Cart",
-                      `this will add ${props.title} to your cart.`,
-                      "CONFIRM",
-                      props.checkoutFn,
-                      "CANCEL",
-                      _ => document.body.classList.toggle("show-modal")
-                    )
-                  }
-                  text="add to cart"
-                />
-              )}
-            </SomeContext.Consumer>
-            {props.text}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+// function BookDisplay(props) {
+//   const addToCart = id => {
+//     console.log("added to cart");
+//   };
+//   return (
+//     <section>
+//       <div className="bg-image" />
+//       <div className="book-section-container">
+//         <div
+//           className="text-container-wrapper"
+//           style={{
+//             width: "550px",
+//             overflow: "hidden",
+//             height: "100%",
+//             position: "relative",
+//             display: "flex",
+//             alignItems: "center"
+//           }}
+//         >
+//           <div className="text-container">
+//             <h1>{props.title}</h1>
+//             <SomeContext.Consumer>
+//               {fn => (
+//                 <Button
+//                   fn={_ =>
+//                     fn(
+//                       "Add to Cart",
+//                       `this will add ${props.title} to your cart.`,
+//                       "CONFIRM",
+//                       props.checkoutFn,
+//                       "CANCEL",
+//                       _ => document.body.classList.toggle("show-modal")
+//                     )
+//                   }
+//                   text="add to cart"
+//                 />
+//               )}
+//             </SomeContext.Consumer>
+//             {props.text}
+//           </div>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
 
 class BookContainer extends React.Component {
   constructor(props) {
@@ -162,11 +164,17 @@ class BookContainer extends React.Component {
         <hr />
         <br />
         <SomeContext.Consumer>
-          {fn => (
+          {openModal => (
             <Button
               text={"Add to Cart"}
               fn={() => {
-                fn();
+                openModal({
+                  modalText: name, 
+                  modalButtonText1: "OK",
+                  modalButtonText2: "Cancel",
+                  modalFn1: this.props.checkoutFn,
+                  modalFn2: () => {}
+                });
               }}
             />
           )}

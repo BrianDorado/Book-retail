@@ -10,37 +10,43 @@ export default class Cart extends React.Component {
     super(props);
     this.state = {
       haveToken: false,
-      amount: 2000,
+      amount: 0,
       email: "",
-      cart: [],
+      cart: { books: [] },
       books: [
         {
+          id: 0,
           name: "Marital Therapy",
           author: "Douglas E. Brinley",
           price: 12
         },
         {
+          id: 1,
           name: "What We Wish We'd Known Before Our Honeymoon",
           author: "Douglas E. Brinley",
           price: 12
         },
         {
+          id: 2,
           name: "The Snowman Who Saw Christmas",
           author: "Geri Brinley",
           price: 12
         },
         {
+          id: 3,
           name: "America in Peril: Ten Stages in the Destruction of a Promised Land",
           author: "Douglas E. Brinley",
           price: 12
         },
         {
+          id: 4,
           name: "SINGLE in a Married Church",
           author: "Douglas E. Brinley and Anne Woelkers",
           price: 12
         },
         {
-          name: "Marital \"Tune-up Kit\"",
+          id: 5,
+          name: 'Marital "Tune-up Kit"',
           author: "Doug Brinley and Dave Brinley",
           price: 12
         }
@@ -97,10 +103,7 @@ export default class Cart extends React.Component {
         `, 'OK', _=>document.body.classList.toggle('show-modal'))
         // clear cart
         this.setState({
-          cart: {
-            book1qty: 0,
-            book2qty: 0
-          }
+          cart: { books: [] }
         })
       });
   };
@@ -138,20 +141,33 @@ export default class Cart extends React.Component {
       .catch(console.error);
   };
   getTotal = () => {
-    const { book1qty, book2qty } = this.state.cart;
+    const { books: cartBooks } = this.state.cart;
     const { books } = this.state;
-    return (book1qty * books[0].price + book2qty * books[1].price).toFixed(2);
+    
+    return cartBooks.reduce( (acc, book) => {
+      return acc + books.find(b=>b.id===Number(book.id)).price
+    }, 0).toFixed(2);
   };
   componentWillUnmount() {
     this.stripeForm.close();
   }
+  generateBooksFromCart() {
+    let booksFromCart = this.state.books.filter( book => this.state.cart.books.findIndex(b=>Number(b.id)===Number(book.id)) !== -1)
+    booksFromCart.forEach((book, index)=>{
+      book.qty = this.state.cart.books.find(b=>Number(b.id)===Number(book.id)).qty
+    })
+    console.log('books from cart: ', booksFromCart)
+    return booksFromCart.map( book => (
+      <BookDisplay book={book} />
+    ))
+  }
   render() {
-    console.log(this.props)
     const { cart, books } = this.state;
     return (
       <div className="cart-component">
         <div className="cart-view-container">
-          <div className="cart-item-component">
+        { this.generateBooksFromCart() }
+          {/* <div className="cart-item-component">
             <h3>{books[0].name}</h3>
 
             <label>quantity:</label>
@@ -185,7 +201,7 @@ export default class Cart extends React.Component {
               onBlur={this.handleChangeQty}
             />
             <p>price: ${(cart.book2qty * books[1].price).toFixed(2)}</p>
-          </div>
+          </div> */}
 
           <section className="checkout-display">
             <p>total: ${this.getTotal()}</p>
@@ -195,4 +211,16 @@ export default class Cart extends React.Component {
       </div>
     );
   }
+}
+
+
+function BookDisplay ({book: {id, name, author, price, qty}}) {
+  return(
+    <div className="cart-item-component">
+      { name } <br/>
+      { author } <br/>
+      price: ${ price.toFixed(2) } <br/>
+      quantity: {qty}
+    </div>
+  )
 }
