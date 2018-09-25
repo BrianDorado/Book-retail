@@ -21,3 +21,7 @@ good font for filler text/ descriptions: font-family: Georgia,"Times New Roman",
 * implement Google analytics
 * add other books 
 * restructure DB table order_history
+
+* in Cart.js, when qty is 0, do not dipslay
+* in Cart.js, show price for multiples properly
+* in Cart.js update total when qty changes; make sure is accurate
