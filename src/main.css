@@ -218,7 +218,7 @@ a {
   padding: 1rem 0;
   background: linear-gradient(#fff, #eee);
   font-family: 'Barlow Semi Condensed', sans-serif;
-  color: #997e11; }
+  color: #222; }
   .cart-component a {
     color: dodgerblue; }
   .cart-component span.header-text {
@@ -245,6 +245,23 @@ a {
     display: inline;
     margin-left: .5rem;
     width: 40px; }
+
+.cart-item-component .title {
+  color: #222 !important; }
+
+.cart-item-component .author {
+  font-size: .8rem;
+  color: #222;
+  font-family: "Barlow Semi Condensed", sans-serif; }
+
+.cart-item-component .price {
+  font-size: .8rem;
+  color: #222;
+  font-family: "Barlow Semi Condensed", sans-serif; }
+
+.cart-item-component input.qty {
+  font-size: .8rem;
+  font-family: "Barlow Semi Condensed", sans-serif; }
 
 .ReactModal__Content {
   opacity: 0;

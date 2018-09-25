@@ -74,7 +74,7 @@ export default class Books extends React.Component {
       <BookContainer
         book={book}
         checkoutFn={() => {
-          this.addItemToCart(book.id);
+          this.addItemToCart(Number(book.id));
         }}
       />
     ));

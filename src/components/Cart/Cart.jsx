@@ -151,6 +151,26 @@ export default class Cart extends React.Component {
   componentWillUnmount() {
     this.stripeForm.close();
   }
+  updateQty = (id, value) => {
+    if (value < 0 || value > 10) return;
+    // update qty on state with evt.target.value
+    // update qty for book with matching id to value
+    // this.state.cart.books[{id: number, qty: number}]
+    // find matching index
+    
+    const index = this.state.cart.books.findIndex(book=>{
+      return Number(book.id) === id;
+    })
+
+    let newBooks = this.state.cart.books.slice();
+    newBooks[index].qty = value
+
+    this.setState({
+      cart: {
+        books: newBooks
+      }
+    })
+  }
   generateBooksFromCart() {
     let booksFromCart = this.state.books.filter( book => this.state.cart.books.findIndex(b=>Number(b.id)===Number(book.id)) !== -1)
     booksFromCart.forEach((book, index)=>{
@@ -158,7 +178,7 @@ export default class Cart extends React.Component {
     })
     console.log('books from cart: ', booksFromCart)
     return booksFromCart.map( book => (
-      <BookDisplay book={book} />
+      <BookDisplay book={book} handleChangeQty={this.handleChangeQty} updateQty={this.updateQty}/>
     ))
   }
   render() {
@@ -214,13 +234,16 @@ export default class Cart extends React.Component {
 }
 
 
-function BookDisplay ({book: {id, name, author, price, qty}}) {
+function BookDisplay ({handleChangeQty, updateQty, book: {id, name, author, price, qty}}) {
   return(
     <div className="cart-item-component">
-      { name } <br/>
-      { author } <br/>
-      price: ${ price.toFixed(2) } <br/>
-      quantity: {qty}
+      <p className="title">{ name }</p>
+      <p className="author">{ author }</p> 
+      <p className="price">price: ${ price.toFixed(2) }</p>
+      <input type="number" className="qty" value={qty}
+      onBlur={handleChangeQty}
+      onChange={({target: {value}})=>updateQty(id, value)}
+      ></input>
     </div>
   )
 }
