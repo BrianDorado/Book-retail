@@ -61,4 +61,19 @@ $bg-attachment: fixed
     .books-component section
         padding: 2rem 0
         height: auto !important
-    
+.ReactModal__Body--open
+    overflow-y: hidden
+    & .nav-component, & .footer-component
+        pointer-events: none
+        filter: opacity(25%)
+
+.css-hs1zqm
+    position: absolute
+    top: 0 
+    left: 0
+    height: 100vh
+    width: 100%
+    z-index: 100
+    background: rgba(255,255,255,.5)
+    div
+        // transform: translate(50vw, 50vh)

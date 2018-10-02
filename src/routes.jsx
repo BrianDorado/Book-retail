@@ -13,7 +13,7 @@ export default (
   <Switch>
     <Route exact path="/" component={Landing} />
     <Route path="/about" component={About} />
-    <Route path="/cart" render={_ => <SomeContext.Consumer>{context => <Cart callModal={context} />}</SomeContext.Consumer>} />
+    <Route path="/cart" render={props => <SomeContext.Consumer>{({openModal, toggleLoader}) => <Cart {...props} openModal={openModal} toggleLoader={toggleLoader} />}</SomeContext.Consumer>} />
     <Route path="/contact" component={Contact} />
 
     <Route path="/books" component={Books} />

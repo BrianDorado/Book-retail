@@ -18,6 +18,10 @@ good font for filler text/ descriptions: font-family: Georgia,"Times New Roman",
 
 ## todo
 
-* media queries, mobile view, footer, slide out menu
-* contact us modal, nodemailer
-* fix ugly modal
+* implement Google analytics
+* restructure DB table order_history
+* reconfigure checkout and mailer to handle new inventory 
+
+* id in cart.books is a string should be number
+* confirmation modal needs config parameter
+* after checkout display loading module until paymet promise resolves

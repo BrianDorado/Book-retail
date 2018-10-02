@@ -2,28 +2,23 @@ import React from "react";
 import axios from "axios";
 import Logo from "../../assets/img/blue-book.png";
 import Button from "../Button/Button";
+import { FadeLoader } from 'react-spinners';
+import bookList from './productsList';
 
-const stripePublicKey = process.env.REACT_APP_STRIPE_TEST_PK;
+const stripePublicKey = process.env.REACT_APP_STRIPE_LIVE_PK;
 
 export default class Cart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       haveToken: false,
-      amount: 2000,
+      amount: 0,
       email: "",
-      cart: [],
-      books: [
-        {
-          name: "Marital Therapy",
-          price: 12
-        },
-        {
-          name: "What We Wish We'd Known Before Our Honeymoon",
-          price: 12
-        }
-      ]
+      cart: { books: [] },
+      books: bookList,
+      displayLoader: false
     };
+    this.toggleDisplayLoader = () => this.setState(state=>{return{ displayLoader: !state.displayLoader }});
 
     this.stripeForm = window.StripeCheckout.configure({
       key: stripePublicKey,
@@ -31,7 +26,7 @@ export default class Cart extends React.Component {
       amount: parseInt(
         String(this.getTotal())
           .split(".")
-          .join("")
+          .join(""), 10
       ), // format for $20.00 -> 2000
       currency: "usd",
       locale: "auto",
@@ -45,6 +40,7 @@ export default class Cart extends React.Component {
   }
 
   componentDidMount() {
+    // get cart
     axios.get("/api/getcart").then(res =>
       this.setState({
         cart: res.data.cart
@@ -60,27 +56,41 @@ export default class Cart extends React.Component {
     const amount = parseInt(
       String(this.getTotal())
         .split(".")
-        .join("")
+        .join(""), 10
     );
     const idempotencyKey = this.generateIdempotencyKey();
     axios
       .post("/api/payment", { token, amount, idempotencyKey, cart })
       .then(result => {
+        // dismiss loading module
+        this.props.toggleLoader()
         // call modal
-        this.props.callModal('Transaction Complete', `
-          You're order was completed.
-          An email receipt will be sent to ${token.email}.
-        
-        `, 'OK', _=>document.body.classList.toggle('show-modal'))
+        this.props.openModal({
+          modalText: `
+          Transaction Complete
+          ${'\n'}
+          An email receipt will be sent to ${token.email}`,
+          modalButtonText1: "OK",
+          modalFn1: ()=>{}
+        })
         // clear cart
         this.setState({
-          cart: {
-            book1qty: 0,
-            book2qty: 0
-          }
+          displayLoadingModule: false,
+          cart: { books: [] }
         })
       });
+      // call loading module
+      this.props.toggleLoader()
   };
+
+  // modal config object 
+  // {
+  //   modalText: name, 
+  //   modalButtonText1: "OK",
+  //   modalButtonText2: "Cancel",
+  //   modalFn1: this.props.checkoutFn,
+  //   modalFn2: () => {}
+  // }
 
   generateIdempotencyKey = () => {
     // 12 chars long random key
@@ -104,7 +114,6 @@ export default class Cart extends React.Component {
     this.stripeForm.open();
   };
   handleFocusChange = event => {
-    console.log(event.target);
   };
   handleChangeQty = event => {
     axios
@@ -115,20 +124,72 @@ export default class Cart extends React.Component {
       .catch(console.error);
   };
   getTotal = () => {
-    const { book1qty, book2qty } = this.state.cart;
+    const { books: cartBooks } = this.state.cart;
     const { books } = this.state;
-    return (book1qty * books[0].price + book2qty * books[1].price).toFixed(2);
+    if (!cartBooks) return 0.00
+    return cartBooks.reduce( (acc, book) => {
+      const { price } = books.find(b=>b.id===parseInt(book.id),10)
+      return (parseFloat(acc) + price*book.qty).toFixed(2)},0 ) 
   };
   componentWillUnmount() {
     this.stripeForm.close();
   }
+  updateQty = (id, value) => {
+    if (value < 0 || value > 10) return;
+    // update qty on state with evt.target.value
+    // update qty for book with matching id to value
+    // this.state.cart.books[{id: number, qty: number}]
+    // find matching index
+    
+    const index = this.state.cart.books.findIndex(book=>{
+      return Number(book.id) === id;
+    })
+
+    let newBooks = this.state.cart.books.slice();
+    newBooks[index].qty = parseInt(value,10)
+
+    this.setState({
+      cart: {
+        books: newBooks
+      }
+    })
+  }
+  removeFromCart = id => {
+    axios.delete(`/api/delete/${id}`)
+         .then(({ data: cart })=>this.setState({ cart}))
+  }
+  generateBooksFromCart() {
+    let booksFromCart = this.state.books.filter( book => {
+      if (!this.state.cart.books) return;
+      const index = this.state.cart.books.findIndex(b=>parseInt(b.id,10)===parseInt(book.id,10));
+      if (index === -1) return false;
+      if (this.state.cart.books[index].qty < 1) return false;
+      return true;
+    })
+    booksFromCart.forEach((book, index)=>{
+      book.qty = this.state.cart.books.find(b=>Number(b.id)===Number(book.id)).qty
+    })
+    return booksFromCart.map( book => (
+      <BookDisplay book={book} handleChangeQty={this.handleChangeQty} updateQty={this.updateQty} removeFromCart={this.removeFromCart}/>
+    ))
+  }
   render() {
-    console.log(this.props)
     const { cart, books } = this.state;
     return (
       <div className="cart-component">
+        <FadeLoader className="fadeLoader" sizeUnit={"px"} size={200} color={'#395C6B'} loading={this.state.displayLoader}
+        styles={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          height: '100vh',
+          width: '100%'
+        }}
+        
+        />
         <div className="cart-view-container">
-          <div className="cart-item-component">
+        { this.generateBooksFromCart() }
+          {/* <div className="cart-item-component">
             <h3>{books[0].name}</h3>
 
             <label>quantity:</label>
@@ -162,7 +223,7 @@ export default class Cart extends React.Component {
               onBlur={this.handleChangeQty}
             />
             <p>price: ${(cart.book2qty * books[1].price).toFixed(2)}</p>
-          </div>
+          </div> */}
 
           <section className="checkout-display">
             <p>total: ${this.getTotal()}</p>
@@ -172,4 +233,20 @@ export default class Cart extends React.Component {
       </div>
     );
   }
+}
+
+
+function BookDisplay ({handleChangeQty, removeFromCart, updateQty, book: {id, name, author, price, qty}}) {
+  return(
+    <div className="cart-item-component">
+      <p className="title">{ name }</p>
+      <p className="author">{ author }</p> 
+      <p className="price">price: ${ (price*qty).toFixed(2) }</p>
+      <button onClick={_=>removeFromCart(id)}> remove from cart </button>
+      <input type="number" className="qty" value={qty}
+      onBlur={handleChangeQty}
+      onChange={({target: {value}})=>updateQty(id, value)}
+      ></input>
+    </div>
+  )
 }

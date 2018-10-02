@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Image from '../../Media/Images/bottle-2022741_960_720.jpg';
 
 class Home extends Component {
   render() {

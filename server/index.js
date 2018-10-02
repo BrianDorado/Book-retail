@@ -9,8 +9,7 @@ const express = require('express'),
       nodemailer = require('nodemailer'),
       port = 4044,
       middleware = require('./middleware/middleware'),
-      path = require('path')
-
+      path = require('path');
 
 require('dotenv').config()
 
@@ -51,10 +50,11 @@ app.post('/api/create/order', orders.createNewOrder)
 
 
 // === DELETE REQUESTS === //
+app.delete('/api/delete/:bookId', products.removeFromCart)
 
 // ===== Stripe ===== //
 
-app.post( '/api/payment', orders.stripePayment )
+app.post( '/api/payment', orders.stripePayment)
 
 // ===== BrowserRouter ==== //
 app.get('*', (req, res) => {

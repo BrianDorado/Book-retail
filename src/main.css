@@ -25,6 +25,21 @@ a {
   display: flex;
   flex-direction: column; }
 
+BODY.displayLoader {
+  overflow: hidden; }
+
+.loader--container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
 #book-svg {
   fill: #3581B8; }
 
@@ -215,10 +230,9 @@ a {
 .cart-component {
   min-height: calc(100vh - 121px);
   flex: auto;
-  padding: 1rem 0;
   background: linear-gradient(#fff, #eee);
   font-family: 'Barlow Semi Condensed', sans-serif;
-  color: #997e11; }
+  color: #222; }
   .cart-component a {
     color: dodgerblue; }
   .cart-component span.header-text {
@@ -246,32 +260,36 @@ a {
     margin-left: .5rem;
     width: 40px; }
 
-.modal-component {
-  font-family: 'Barlow Semi Condensed', sans-serif;
-  color: #997e11;
-  padding: 1rem;
-  background: linear-gradient(#fff, #eee);
-  border-top: 1px solid #888;
-  border-bottom: 1px solid #888;
-  position: absolute;
-  top: -20px;
+.cart-item-component .title {
+  color: #222 !important; }
+
+.cart-item-component .author {
+  font-size: .8rem;
+  color: #222;
+  font-family: "Barlow Semi Condensed", sans-serif; }
+
+.cart-item-component .price {
+  font-size: .8rem;
+  color: #222;
+  font-family: "Barlow Semi Condensed", sans-serif; }
+
+.cart-item-component input.qty {
+  font-size: .8rem;
+  font-family: "Barlow Semi Condensed", sans-serif; }
+
+.ReactModal__Content {
   opacity: 0;
-  width: 100%;
-  left: 0;
-  text-align: center;
-  transition: opacity .33s ease-in-out;
-  z-index: 15;
-  pointer-events: none; }
-  .modal-component h3 {
-    margin-bottom: .4rem; }
-  .modal-component h6 {
-    margin-bottom: .8rem; }
-  .show-modal .modal-component {
-    top: 200px;
-    opacity: 1;
-    pointer-events: auto; }
-  .modal-component .button-component {
+  transition: all .3s ease;
+  box-shadow: 0 6px 12px -4px rgba(0, 0, 0, 0.4); }
+  .ReactModal__Content .button-component {
     margin: 0 .5rem; }
+
+.ReactModal__Content.ReactModal__Content--after-open {
+  color: #222;
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  background: linear-gradient(#fff, #eee);
+  text-align: center;
+  opacity: 1; }
 
 .opacity-component {
   position: absolute;
@@ -334,59 +352,28 @@ a {
   animation: fadein 1s forwards; }
 
 .books-component {
+  min-height: calc(100vh - 121px);
   opacity: 0;
   display: flex;
   flex-direction: column; }
-  .books-component .text-container {
-    overflow: auto;
-    max-height: 100%; }
-  .books-component a {
-    color: #b6d4ea; }
-  .books-component .book-section-container {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    max-width: 1100px;
-    margin: 0 auto; }
-  .books-component section {
+  .books-component SECTION {
     flex: auto;
     padding: 2rem;
-    position: relative; }
-    .books-component section .bg-image {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      z-index: -10; }
-    .books-component section:first-child {
-      height: auto; }
-      .books-component section:first-child .text-container {
-        margin-left: auto; }
-      .books-component section:first-child .bg-image {
-        background: url("./assets/img/marriage-band-1920-1080.jpg");
-        background-attachment: fixed;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        filter: blur(0px) grayscale(25%); }
-    .books-component section:nth-child(3) {
-      height: auto; }
-      .books-component section:nth-child(3) .text-container {
-        margin: 0; }
-      .books-component section:nth-child(3) .bg-image {
-        background: url("./assets/img/bride-groom1620-1080.jpg");
-        background-attachment: fixed;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        filter: blur(0px) grayscale(25%); }
-  .books-component .mediary-div {
-    height: 4rem;
-    z-index: 10;
-    background: #1e4969;
-    border-top: 4px solid #1e4969;
-    border-bottom: 4px solid #1e4969; }
+    position: relative;
+    font-family: "Josefin Sans", sans-serif;
+    border: 1px solid gray;
+    background: rgba(0, 0, 0, 0.2); }
+    .books-component SECTION .author {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: .8rem;
+      padding: 1rem 0; }
+    .books-component SECTION .description {
+      padding: .5rem 0;
+      font-family: Georgia, "Times New Roman", Times, serif; }
+      .books-component SECTION .description .read-more {
+        font-size: .6rem;
+        color: #54879d;
+        cursor: pointer; }
 
 .button-component {
   font-family: "Barlow Semi Condensed", sans-serif;
@@ -497,3 +484,18 @@ a {
   .books-component section {
     padding: 2rem 0;
     height: auto !important; } }
+
+.ReactModal__Body--open {
+  overflow-y: hidden; }
+  .ReactModal__Body--open .nav-component, .ReactModal__Body--open .footer-component {
+    pointer-events: none;
+    filter: opacity(25%); }
+
+.css-hs1zqm {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.5); }

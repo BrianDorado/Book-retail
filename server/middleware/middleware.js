@@ -5,8 +5,9 @@ module.exports = {
         if(!req.session.user){
             req.session.user = {
                 cart: {
-                    book1qty: 0,
-                    book2qty: 0
+                    books: [
+                        // { id: number, qty: number }
+                    ]
                 }
             }
         }
