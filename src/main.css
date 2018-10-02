@@ -239,6 +239,7 @@ BODY.displayLoader {
     display: block;
     margin-bottom: 1rem; }
   .cart-component .cart-view-container {
+    min-height: calc(100vh - 121px);
     background: #eee;
     padding: 3rem 2.5rem;
     text-align: right;
