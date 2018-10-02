@@ -4,7 +4,7 @@ import Logo from "../../assets/img/blue-book.png";
 import Button from "../Button/Button";
 import bookList from "./productsList";
 
-const stripePublicKey = process.env.REACT_APP_STRIPE_TEST_PK;
+const stripePublicKey = process.env.REACT_APP_STRIPE_LIVE_PK;
 
 export default class Cart extends React.Component {
   constructor(props) {

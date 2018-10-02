@@ -15,7 +15,7 @@ module.exports = {
   stripePayment: (req, res, next) => {
     const { cart, token, amount, idempotencyKey } = req.body;
     console.log(' cart : ', cart)
-    const stripe = require("stripe")(process.env.STRIPE_TEST_SK);
+    const stripe = require("stripe")(process.env.STRIPE_LIVE_SK);
     stripe.charges.create(
       {
         amount,
