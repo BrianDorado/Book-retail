@@ -19,9 +19,9 @@ good font for filler text/ descriptions: font-family: Georgia,"Times New Roman",
 ## todo
 
 * implement Google analytics
-* add other books 
 * restructure DB table order_history
+* reconfigure checkout and mailer to handle new inventory 
 
-* in Cart.js, when qty is 0, do not dipslay
-* in Cart.js, show price for multiples properly
-* in Cart.js update total when qty changes; make sure is accurate
+* id in cart.books is a string should be number
+* confirmation modal needs config parameter
+* after checkout display loading module until paymet promise resolves

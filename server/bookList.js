@@ -37,4 +37,4 @@ const bookList = [
   }
 ];
 
-export default bookList;
+module.exports = bookList;

@@ -33,7 +33,7 @@ export default props => {
             {thumbnailArray}
         </div>
         <SomeContext.Consumer>
-                {fn=><button onClick={_=>fn('use this')}>test the context bad boy</button>}
+                {({openModal: fn})=><button onClick={_=>fn('use this')}>test the context bad boy</button>}
         </SomeContext.Consumer>
     </div>
     )

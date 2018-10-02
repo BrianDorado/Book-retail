@@ -6,6 +6,7 @@ import Footer from "./components/Footer/Footer";
 import DropdownMenu from "./components/DropdownMenu/dropdownMenu";
 import Modal from 'react-modal';
 import Button from './components/Button/Button';
+import { FadeLoader } from 'react-spinners';
 
 const modalStyles = {
   content : {
@@ -31,7 +32,8 @@ class App extends Component {
         modalFn2: ()=>{console.log('modal fn 2')},
         modalBtnText1: 'OK',
         modalBtnText2: 'Cancel'
-      }
+      },
+      displayLoader: false
     };
   }
 
@@ -40,6 +42,16 @@ class App extends Component {
       modalOpen: true,
       modalConfig
     })
+  }
+  toggleLoader = () => {
+    console.log('toggle_loader');
+    this.setState({ displayLoader: !this.state.displayLoader});
+    document.body.classList.toggle("displayLoader")
+    const loader = document.querySelector('.loader--container')
+    if (loader) {  
+      loader.style.left = window.pageXOffset + "px";
+      loader.style.top = window.pageYOffset + "px";
+    }
   }
   afterOpenModal = () => {
     // this.subtitle.style.color = 'red';
@@ -109,8 +121,23 @@ class App extends Component {
   render() {
     const { modalConfig: { modalText, modalFn1, modalFn2, modalButtonText1, modalButtonText2 } } = this.state;
     return (
-      <SomeContext.Provider value={this.openModal}>
+      <SomeContext.Provider value={{
+        openModal: this.openModal,
+        toggleLoader: this.toggleLoader
+        }}>
         <div className="App">
+        {
+          this.state.displayLoader ? 
+          <div className="loader--container">
+            <FadeLoader
+              sizeUnit={"px"}
+              size={200}
+              color={'#395C6B'}
+              loading={true}
+            />
+          </div> :
+          null
+        }
         <Modal
           isOpen={this.state.modalOpen}
           onAfterOpen={this.afterOpenModal}

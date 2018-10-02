@@ -2,8 +2,10 @@ import React from "react";
 import axios from "axios";
 import Logo from "../../assets/img/blue-book.png";
 import Button from "../Button/Button";
+import { FadeLoader } from 'react-spinners';
+import bookList from './productsList';
 
-const stripePublicKey = process.env.REACT_APP_STRIPE_TEST_PK;
+const stripePublicKey = process.env.REACT_APP_STRIPE_LIVE_PK;
 
 export default class Cart extends React.Component {
   constructor(props) {
@@ -13,45 +15,10 @@ export default class Cart extends React.Component {
       amount: 0,
       email: "",
       cart: { books: [] },
-      books: [
-        {
-          id: 0,
-          name: "Marital Therapy",
-          author: "Douglas E. Brinley",
-          price: 12
-        },
-        {
-          id: 1,
-          name: "What We Wish We'd Known Before Our Honeymoon",
-          author: "Douglas E. Brinley",
-          price: 12
-        },
-        {
-          id: 2,
-          name: "The Snowman Who Saw Christmas",
-          author: "Geri Brinley",
-          price: 12
-        },
-        {
-          id: 3,
-          name: "America in Peril: Ten Stages in the Destruction of a Promised Land",
-          author: "Douglas E. Brinley",
-          price: 12
-        },
-        {
-          id: 4,
-          name: "SINGLE in a Married Church",
-          author: "Douglas E. Brinley and Anne Woelkers",
-          price: 12
-        },
-        {
-          id: 5,
-          name: 'Marital "Tune-up Kit"',
-          author: "Doug Brinley and Dave Brinley",
-          price: 12
-        }
-      ]
+      books: bookList,
+      displayLoader: false
     };
+    this.toggleDisplayLoader = () => this.setState(state=>{return{ displayLoader: !state.displayLoader }});
 
     this.stripeForm = window.StripeCheckout.configure({
       key: stripePublicKey,
@@ -59,7 +26,7 @@ export default class Cart extends React.Component {
       amount: parseInt(
         String(this.getTotal())
           .split(".")
-          .join("")
+          .join(""), 10
       ), // format for $20.00 -> 2000
       currency: "usd",
       locale: "auto",
@@ -89,24 +56,41 @@ export default class Cart extends React.Component {
     const amount = parseInt(
       String(this.getTotal())
         .split(".")
-        .join("")
+        .join(""), 10
     );
     const idempotencyKey = this.generateIdempotencyKey();
     axios
       .post("/api/payment", { token, amount, idempotencyKey, cart })
       .then(result => {
+        // dismiss loading module
+        this.props.toggleLoader()
         // call modal
-        this.props.callModal('Transaction Complete', `
-          You're order was completed.
-          An email receipt will be sent to ${token.email}.
-        
-        `, 'OK', _=>document.body.classList.toggle('show-modal'))
+        this.props.openModal({
+          modalText: `
+          Transaction Complete
+          ${'\n'}
+          An email receipt will be sent to ${token.email}`,
+          modalButtonText1: "OK",
+          modalFn1: ()=>{}
+        })
         // clear cart
         this.setState({
+          displayLoadingModule: false,
           cart: { books: [] }
         })
       });
+      // call loading module
+      this.props.toggleLoader()
   };
+
+  // modal config object 
+  // {
+  //   modalText: name, 
+  //   modalButtonText1: "OK",
+  //   modalButtonText2: "Cancel",
+  //   modalFn1: this.props.checkoutFn,
+  //   modalFn2: () => {}
+  // }
 
   generateIdempotencyKey = () => {
     // 12 chars long random key
@@ -130,7 +114,6 @@ export default class Cart extends React.Component {
     this.stripeForm.open();
   };
   handleFocusChange = event => {
-    console.log(event.target);
   };
   handleChangeQty = event => {
     axios
@@ -143,10 +126,10 @@ export default class Cart extends React.Component {
   getTotal = () => {
     const { books: cartBooks } = this.state.cart;
     const { books } = this.state;
-    
+    if (!cartBooks) return 0.00
     return cartBooks.reduce( (acc, book) => {
-      return acc + books.find(b=>b.id===Number(book.id)).price
-    }, 0).toFixed(2);
+      const { price } = books.find(b=>b.id===parseInt(book.id),10)
+      return (parseFloat(acc) + price*book.qty).toFixed(2)},0 ) 
   };
   componentWillUnmount() {
     this.stripeForm.close();
@@ -163,7 +146,7 @@ export default class Cart extends React.Component {
     })
 
     let newBooks = this.state.cart.books.slice();
-    newBooks[index].qty = value
+    newBooks[index].qty = parseInt(value,10)
 
     this.setState({
       cart: {
@@ -171,20 +154,39 @@ export default class Cart extends React.Component {
       }
     })
   }
+  removeFromCart = id => {
+    axios.delete(`/api/delete/${id}`)
+         .then(({ data: cart })=>this.setState({ cart}))
+  }
   generateBooksFromCart() {
-    let booksFromCart = this.state.books.filter( book => this.state.cart.books.findIndex(b=>Number(b.id)===Number(book.id)) !== -1)
+    let booksFromCart = this.state.books.filter( book => {
+      if (!this.state.cart.books) return;
+      const index = this.state.cart.books.findIndex(b=>parseInt(b.id,10)===parseInt(book.id,10));
+      if (index === -1) return false;
+      if (this.state.cart.books[index].qty < 1) return false;
+      return true;
+    })
     booksFromCart.forEach((book, index)=>{
       book.qty = this.state.cart.books.find(b=>Number(b.id)===Number(book.id)).qty
     })
-    console.log('books from cart: ', booksFromCart)
     return booksFromCart.map( book => (
-      <BookDisplay book={book} handleChangeQty={this.handleChangeQty} updateQty={this.updateQty}/>
+      <BookDisplay book={book} handleChangeQty={this.handleChangeQty} updateQty={this.updateQty} removeFromCart={this.removeFromCart}/>
     ))
   }
   render() {
     const { cart, books } = this.state;
     return (
       <div className="cart-component">
+        <FadeLoader className="fadeLoader" sizeUnit={"px"} size={200} color={'#395C6B'} loading={this.state.displayLoader}
+        styles={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          height: '100vh',
+          width: '100%'
+        }}
+        
+        />
         <div className="cart-view-container">
         { this.generateBooksFromCart() }
           {/* <div className="cart-item-component">
@@ -234,12 +236,13 @@ export default class Cart extends React.Component {
 }
 
 
-function BookDisplay ({handleChangeQty, updateQty, book: {id, name, author, price, qty}}) {
+function BookDisplay ({handleChangeQty, removeFromCart, updateQty, book: {id, name, author, price, qty}}) {
   return(
     <div className="cart-item-component">
       <p className="title">{ name }</p>
       <p className="author">{ author }</p> 
-      <p className="price">price: ${ price.toFixed(2) }</p>
+      <p className="price">price: ${ (price*qty).toFixed(2) }</p>
+      <button onClick={_=>removeFromCart(id)}> remove from cart </button>
       <input type="number" className="qty" value={qty}
       onBlur={handleChangeQty}
       onChange={({target: {value}})=>updateQty(id, value)}

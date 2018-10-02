@@ -6,14 +6,14 @@ module.exports = {
   },
   addToCart: (req, res) => {
     const { cart } = req.session.user;
-    const { bookId } = req.params;
+    const bookId = parseInt(req.params.bookId,10);
 
     
     // if (bookId == 1) cart.book1qty++;
     // if (bookId == 2) cart.book2qty++;
 
     // check if book in cart
-    let index = cart.books.findIndex( book => Number(book.id) === Number(bookId))
+    let index = cart.books.findIndex( book => book.id === bookId)
 
     console.log('index: ', index)
     // if not in cart, add new record 
@@ -25,6 +25,17 @@ module.exports = {
     }
 
     res.status(200).send({ cart });
+  },
+  removeFromCart: (req, res) => {
+    const { cart: { books: booksInCart } } = req.session.user;
+    const { bookId } = req.params;
+    console.log( 'cart on sess: ', booksInCart);
+    let index = booksInCart.findIndex( book => book.id === parseInt(bookId))
+    if (index === -1){
+      return res.status(500).send({error: 'book not found'})
+    }
+    booksInCart.splice(index, 1);
+    res.status(200).send(req.session.user.cart);
   },
   getCart: (req, res) => {
     console.log('cart on sessionN: ', req.session.user.cart)

@@ -25,6 +25,21 @@ a {
   display: flex;
   flex-direction: column; }
 
+BODY.displayLoader {
+  overflow: hidden; }
+
+.loader--container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
 #book-svg {
   fill: #3581B8; }
 
@@ -215,7 +230,6 @@ a {
 .cart-component {
   min-height: calc(100vh - 121px);
   flex: auto;
-  padding: 1rem 0;
   background: linear-gradient(#fff, #eee);
   font-family: 'Barlow Semi Condensed', sans-serif;
   color: #222; }
@@ -338,6 +352,7 @@ a {
   animation: fadein 1s forwards; }
 
 .books-component {
+  min-height: calc(100vh - 121px);
   opacity: 0;
   display: flex;
   flex-direction: column; }
@@ -475,3 +490,12 @@ a {
   .ReactModal__Body--open .nav-component, .ReactModal__Body--open .footer-component {
     pointer-events: none;
     filter: opacity(25%); }
+
+.css-hs1zqm {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.5); }

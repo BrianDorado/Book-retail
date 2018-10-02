@@ -1,3 +1,4 @@
+const bookList = require('./../../bookList');
 module.exports = {
   createNewOrder: (req, res) => {
     // not in use
@@ -13,7 +14,8 @@ module.exports = {
   // _________________________stripe payment endpoint____________________________________
   stripePayment: (req, res, next) => {
     const { cart, token, amount, idempotencyKey } = req.body;
-    const stripe = require("stripe")(process.env.STRIPE_TEST_SK);
+    console.log(' cart : ', cart)
+    const stripe = require("stripe")(process.env.STRIPE_LIVE_SK);
     stripe.charges.create(
       {
         amount,
@@ -28,15 +30,20 @@ module.exports = {
         if (err) console.error("___stripe error___", err);
         const db = req.app.get("db");
         const transactionRecord = JSON.stringify(charge);
-        const { book1qty: maritalTherapyQty, book2qty: whatWeWishWedKnownQty } = cart;
+        // cart 
         const date = new Date().toISOString()
-        db.Orders.createOrderRecord([transactionRecord, JSON.stringify({ maritalTherapyQty, whatWeWishWedKnownQty }), date])
+        db.Orders.createOrderRecord([transactionRecord, JSON.stringify(cart), date])
           .then(_ => {
             req.session.user.cart = {
-              book1qty: 0,
-              book2qty: 0
+              books: []
             };
             console.log('charge from const customer info', charge)
+            let booksOrdered = [];
+            cart.books.forEach(b1=>{
+              let book = bookList.find(b2=>b2.id===b1.id)
+              book.qty = b1.qty;
+              booksOrdered.push(book);
+            })
             const customerInfo = {
                 amount:         charge.amount,
                 address_line1:  charge.source.address_line1,
@@ -45,8 +52,7 @@ module.exports = {
                 address_state:  charge.source.address_state,
                 address_zip:    charge.source.address_zip,
                 email:          token.email,
-                booksOrdered:    { maritalTherapyQty, whatWeWishWedKnownQty}
-
+                booksOrdered
             }
             sendEmail(res, token.email, charge.id, customerInfo)
             res.status(200).send({ id: charge.id, email: token.email });
@@ -61,7 +67,7 @@ module.exports = {
   }
 };
 
-function sendEmail(res, customerEmail, orderId, customerInfo) {
+function sendEmail(res, customerEmail, orderId, customerInfo) { // customerInfo.booksOrdered
     console.log('customer info from inside sendEmail: ', customerInfo)
   const nodemailer = require("nodemailer");
   var smtpConfig = {
@@ -75,20 +81,29 @@ function sendEmail(res, customerEmail, orderId, customerInfo) {
   };
 
   let transporter = nodemailer.createTransport(smtpConfig);
+  let booksQuantity = ''
+  customerInfo.booksOrdered.forEach(order=>{
+    booksQuantity = booksQuantity.concat(`<p>${order.name}, Quantity: ${order.qty}</p>`)
+  })
   let message = {
       from: 'brinleybooks@gmx.com',
       to: customerEmail,
       subject: "Order Confirmation",
       html: `
-      <div style="padding: 12px; background: dodgerblue; color: white; line-height:20px;">
+      <div style="padding: 12px; 
+           background: dodgerblue; 
+           color: white; line-height:20px;
+           font-family: Helvetica, sans-serif;
+           font-size: 18px;
+           ">
         <h3>Order Confirmation</h3>
         <hr>
-        <p style="color:white !important">
-            Thank you for your order. You're order will be shipped to you soon.
+        <p>
+            Thank you for your order.
             <br> 
             Your order ID is: <strong>${orderId}</strong>
             <br>
-            Your order will be shipped to the following address
+            Your order will be shipped to the following address:
             <blockquote>
                 ${customerInfo.address_line1}<br>
                 ${customerInfo.address_line2?customerInfo.address_line2:''}<br>
@@ -98,9 +113,9 @@ function sendEmail(res, customerEmail, orderId, customerInfo) {
             <br>
             <h3> Order Details </h3>
             <hr>
-            ${customerInfo.booksOrdered.maritalTherapyQty>0? 'Marital Therapy: quantity '+ customerInfo.booksOrdered.maritalTherapyQty: ''}<br>
-            ${customerInfo.booksOrdered.whatWeWishWedKnownQty>0? 'What We Wish We\'d Known Before Our Honeymoon: quantity '+customerInfo.booksOrdered.whatWeWishWedKnownQty: ''}<br>
-            Amount payed: ${convertCentsToDollars(customerInfo.amount)}
+            ${booksQuantity}
+            <br>
+            Amount payed: $${convertCentsToDollars(customerInfo.amount).toFixed(2)}
             <hr>
             <br>
             If you have concerns or questions about your order, you may reply to this email.
@@ -111,7 +126,7 @@ function sendEmail(res, customerEmail, orderId, customerInfo) {
   transporter.sendMail(message, error=>{if(error)console.log('__mailer_error__,',error)})
   let invoice = {
       from: 'brinleybooks@gmx.com',
-      to: [ process.env.invoiceEmail1, process.env.invoiceEmail2 ], 
+      to: [ process.env.invoiceEmail2 ], // invoiceEmail1
       subject: 'BRINLEY BOOKS ORDER MESSAGE',
       html: `
       <div style="padding: 12px; background: dodgerblue; color: white; lineHeight:20px;">
@@ -129,10 +144,9 @@ function sendEmail(res, customerEmail, orderId, customerInfo) {
             </blockquote>
             <br>
             ORDER DETAILS:<br>
-            Marital Therapy: ${customerInfo.booksOrdered.maritalTherapyQty}<br>
-            What We Wish We'd Known...: ${customerInfo.booksOrdered.whatWeWishWedKnownQty}<br>
-            Amount paid: ${convertCentsToDollars(customerInfo.amount)}
-            <br>
+            ${booksQuantity}
+            Amount paid: $${convertCentsToDollars(customerInfo.amount).toFixed(2)}
+            <br><hr>
         </p>
       </div>
       `
@@ -143,5 +157,5 @@ function sendEmail(res, customerEmail, orderId, customerInfo) {
 function convertCentsToDollars(int){
     int = String(int).split('');
     int.splice(-2,0,'.');
-    return int.join('');
+    return parseInt(int.join(''),10);
 }

@@ -50,10 +50,11 @@ app.post('/api/create/order', orders.createNewOrder)
 
 
 // === DELETE REQUESTS === //
+app.delete('/api/delete/:bookId', products.removeFromCart)
 
 // ===== Stripe ===== //
 
-app.post( '/api/payment', orders.stripePayment )
+app.post( '/api/payment', orders.stripePayment)
 
 // ===== BrowserRouter ==== //
 app.get('*', (req, res) => {

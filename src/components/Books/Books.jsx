@@ -164,7 +164,7 @@ class BookContainer extends React.Component {
         <hr />
         <br />
         <SomeContext.Consumer>
-          {openModal => (
+          { ({openModal}) => (
             <Button
               text={"Add to Cart"}
               fn={() => {
