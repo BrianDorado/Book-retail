@@ -364,12 +364,12 @@ BODY.displayLoader {
     border: 1px solid gray;
     background: rgba(0, 0, 0, 0.2); }
     .books-component SECTION .author {
-      font-family: Georgia, "Times New Roman", Times, serif;
+      font-family: "Open Sans", sans-serif;
       font-size: .8rem;
-      padding: 1rem 0; }
+      padding: .7rem 0; }
     .books-component SECTION .description {
       padding: .5rem 0;
-      font-family: Georgia, "Times New Roman", Times, serif; }
+      font-family: "Open Sans", sans-serif; }
       .books-component SECTION .description .read-more {
         font-size: .6rem;
         color: #54879d;
