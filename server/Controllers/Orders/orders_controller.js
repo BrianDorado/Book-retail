@@ -15,7 +15,7 @@ module.exports = {
   stripePayment: (req, res, next) => {
     const { cart, token, amount, idempotencyKey } = req.body;
     console.log(' cart : ', cart)
-    const stripe = require("stripe")(process.env.STRIPE_LIVE_SK);
+    const stripe = require("stripe")(process.env.STRIPE_TEST_SK);
     stripe.charges.create(
       {
         amount,
@@ -83,6 +83,7 @@ function sendEmail(res, customerEmail, orderId, customerInfo) { // customerInfo.
   let transporter = nodemailer.createTransport(smtpConfig);
   let booksQuantity = ''
   customerInfo.booksOrdered.forEach(order=>{
+    if (order.qty > 1)
     booksQuantity = booksQuantity.concat(`<p>${order.name}, Quantity: ${order.qty}</p>`)
   })
   let message = {
@@ -126,7 +127,7 @@ function sendEmail(res, customerEmail, orderId, customerInfo) { // customerInfo.
   transporter.sendMail(message, error=>{if(error)console.log('__mailer_error__,',error)})
   let invoice = {
       from: 'brinleybooks@gmx.com',
-      to: [ process.env.invoiceEmail2 ], // invoiceEmail1
+      to: [ process.env.invoiceEmail1, process.env.invoiceEmail2 ], // invoiceEmail1
       subject: 'BRINLEY BOOKS ORDER MESSAGE',
       html: `
       <div style="padding: 12px; background: dodgerblue; color: white; lineHeight:20px;">

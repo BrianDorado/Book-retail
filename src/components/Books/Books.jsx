@@ -11,45 +11,7 @@ export default class Books extends React.Component {
   componentDidMount() {
     // get book list from server
     axios.get("/api/products/books").then(({ data: books }) => this.setState({ books }));
-    // hide scrollbars
-    // const textContainers = document.querySelectorAll(".text-container");
-    // // offsetWidth - clientWidth to determine size of scrollbar
-    // const scrollbarOffset = textContainers[0].offsetWidth - textContainers[0].clientWidth;
-    // textContainers[0].style.right = "-" + scrollbarOffset + "px";
-    // textContainers[1].style.right = "-" + scrollbarOffset + "px";
-    // textContainers[0].style.position = "relative";
-    // textContainers[1].style.position = "relative";
-    // const textContainerWrappers = document.querySelectorAll(".text-container-wrapper");
-    // textContainerWrappers[0].style.marginLeft = "auto";
-    // textContainerWrappers[1].style.marginLeft = "-" + scrollbarOffset + "px";
-
-    // const bgImg1 = new Image();
-    // const bgImg2 = new Image();
-    // bgImg1.src = marriageBand;
-    // bgImg2.src = brideGroom;
-
-    // let bg1Loaded = false;
-    // let bg2Loaded = false;
-    // console.time("book-imgs-load");
-    // bgImg1.onload = function() {
-    //   bg1Loaded = true;
-    //   if (bg2Loaded) {
-    //     console.timeEnd("book-imgs-load");
-    //     firstLoadDelay(1200);
-    //   }
-    // };
-    // bgImg2.onload = function() {
-    //   bg2Loaded = true;
-    //   if (bg1Loaded) {
-    //     console.timeEnd("book-imgs-load");
-    //     firstLoadDelay(1200);
-    //   }
-    // };
     firstLoadDelay(1200);
-    // const bgImageElements = document.querySelectorAll(".bg-image");
-    // bgImageElements[0].style.backgroundImage = "url(" + bgImg1 + ")";
-    // console.log(' bg 2 ', bgImg2)
-    // bgImageElements[1].style.backgroundImage = "url(" + bgImg2 + ")";
 
     function firstLoadDelay(delay) {
       if (document.body.classList.contains("is-mounted")) {
@@ -69,7 +31,6 @@ export default class Books extends React.Component {
       .catch(console.error);
   };
   render() {
-    console.log(`books state:`, this.state);
     const books = this.state.books.map(book => (
       <BookContainer
         book={book}
@@ -81,52 +42,6 @@ export default class Books extends React.Component {
     return <div className="books-component">{books}</div>;
   }
 }
-
-// function BookDisplay(props) {
-//   const addToCart = id => {
-//     console.log("added to cart");
-//   };
-//   return (
-//     <section>
-//       <div className="bg-image" />
-//       <div className="book-section-container">
-//         <div
-//           className="text-container-wrapper"
-//           style={{
-//             width: "550px",
-//             overflow: "hidden",
-//             height: "100%",
-//             position: "relative",
-//             display: "flex",
-//             alignItems: "center"
-//           }}
-//         >
-//           <div className="text-container">
-//             <h1>{props.title}</h1>
-//             <SomeContext.Consumer>
-//               {fn => (
-//                 <Button
-//                   fn={_ =>
-//                     fn(
-//                       "Add to Cart",
-//                       `this will add ${props.title} to your cart.`,
-//                       "CONFIRM",
-//                       props.checkoutFn,
-//                       "CANCEL",
-//                       _ => document.body.classList.toggle("show-modal")
-//                     )
-//                   }
-//                   text="add to cart"
-//                 />
-//               )}
-//             </SomeContext.Consumer>
-//             {props.text}
-//           </div>
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }
 
 class BookContainer extends React.Component {
   constructor(props) {
@@ -142,7 +57,6 @@ class BookContainer extends React.Component {
     e.textContent = e.textContent === "view more" ? "view less" : "view more";
   };
   render() {
-    console.log(this.state);
     let {
       checkoutFn,
       book: { name, description, author, price }

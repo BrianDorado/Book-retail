@@ -28,8 +28,8 @@ class App extends Component {
       modalOpen: false,
       modalConfig: {
         modalText: '', 
-        modalFn1: ()=>{console.log('modal fn 1')},
-        modalFn2: ()=>{console.log('modal fn 2')},
+        modalFn1: ()=>{return 0;},
+        modalFn2: ()=>{return 0;},
         modalBtnText1: 'OK',
         modalBtnText2: 'Cancel'
       },
@@ -44,7 +44,6 @@ class App extends Component {
     })
   }
   toggleLoader = () => {
-    console.log('toggle_loader');
     this.setState({ displayLoader: !this.state.displayLoader});
     document.body.classList.toggle("displayLoader")
     const loader = document.querySelector('.loader--container')
@@ -64,29 +63,6 @@ class App extends Component {
       document.body.classList.add("is-mounted");
     }, 800);
 
-    // document.body.onscroll = _ => {
-    //   if (document.body.classList.contains("show-modal")) {
-    //     // prevent free scroll when modal open
-    //     window.scrollTo(0, 0);
-    //     const opacity = document.querySelector(".opacity-component");
-    //     const modal = document.querySelector(".modal-component");
-
-    //     opacity.style.top = window.scrollY + "px";
-    //     modal.style.top = window.scrollY + 200 + "px";
-    //   }
-    // };
-
-    //   document.body.onscroll =  e=>{
-    //     const Y = window.scrollY
-    //     console.log('scrooll effc')
-    //     if(document.body.classList.contains('show-modal')){
-    //       console.log('scroll eve', e)
-    //       window.scrollTo( 0, Y )
-    //       console.log('_-scroll effect-__')
-
-    //     }
-    //   }
-
     // add functionality to hamburger menu
     const hamburgerIcon = document.querySelector("#hamburger-icon");
     const dropdown = document.querySelector("#drop-down-menu");
@@ -101,22 +77,6 @@ class App extends Component {
       };
     });
   }
-
-  // callModal = (title, text, btn1text, btn1fn, btn2text, btn2fn) => {
-  //   // set window.pageYOffset or window.scrollY to the top of opacity and modal + 80
-  //   document.querySelector(".opacity-component").style.top = window.pageYOffset + "px";
-  //   document.querySelector(".modal-component").style.top = window.pageYOffset + 200 + "px";
-  //   this.setState(
-  //     {
-  //       modalData: {
-  //         title, text, btn1text, btn1fn, btn2text, btn2fn
-  //       }
-  //     },
-  //     () => {
-  //       document.body.classList.toggle("show-modal");
-  //     }
-  //   );
-  // };
 
   render() {
     const { modalConfig: { modalText, modalFn1, modalFn2, modalButtonText1, modalButtonText2 } } = this.state;

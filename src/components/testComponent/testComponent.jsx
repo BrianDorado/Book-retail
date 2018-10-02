@@ -10,7 +10,7 @@ function BookThumbnail(props){
     }
     return (
         <div className="book-thumbnail">
-                <img src={Cover}/>
+                <img src={Cover} alt="cover"/>
                 <div className="left-side">
                     <div className="book-title">Book Title</div> 
                     <div className="author-name"><em>by</em> Author Name</div>
