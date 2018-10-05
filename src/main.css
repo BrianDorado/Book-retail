@@ -322,7 +322,7 @@ BODY.displayLoader {
     overflow: hidden;
     display: grid;
     grid-template-columns: 200px 1fr;
-    grid-template-rows: 20% 80%;
+    grid-template-rows: 92px 1fr;
     grid-template-areas: "left top-right" "left bottom-right"; }
     .books-component .book--container .title-author--container {
       grid-area: top-right; }
@@ -479,7 +479,8 @@ BODY.displayLoader {
   .books-component .book--container {
     padding: .5rem;
     grid-template-areas: "top-left top-right" "bottom bottom" !important;
-    grid-template-columns: 160px 1fr; }
+    grid-template-columns: 160px 1fr;
+    grid-template-rows: 20% 80%; }
   .books-component .description {
     grid-area: bottom !important; }
   .books-component .title-author--container {
