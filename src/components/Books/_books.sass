@@ -5,21 +5,44 @@
     opacity: 0
     display: flex
     flex-direction: column
-    SECTION // BookDisplay
+    .book--container // BookDisplay
         flex: auto
         padding: 2rem
         position: relative
         font-family: $font2
         border: 1px solid gray
         background: rgba(0,0,0,.2)
+        overflow: hidden
+        display: grid
+        grid-template-columns: 200px 1fr
+        grid-template-rows: 20% 80%
+        grid-template-areas: "left top-right" "left bottom-right"
+        .title-author--container
+            grid-area: top-right
         .author
             font-family: $open-sans
             font-size: .8rem
-            padding: .7rem 0
+            padding: .2rem 0 .7rem 0
         .description
+            grid-area: bottom-right
             padding: .5rem 0
             font-family: $open-sans
             .read-more
-                font-size: .6rem
+                font-size: .8rem
                 color: $color1
                 cursor: pointer
+                font-weight: 800
+        .cover-image
+            grid-area: left
+            width: 180px
+            border: 1px solid gray
+            margin-bottom: 1rem
+            // transform: rotate(90deg)
+        .title-author-image
+            min-width: 200px
+            overflow: hidden
+        .description-checkout_button
+            padding-left: 1rem
+
+// cover-image, title-author--container, description
+// parent: book--container

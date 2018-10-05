@@ -23,17 +23,11 @@ $bg-attachment: fixed
 .clearfix
     overflow: auto
 
-
-
-
-
-
 @import reset
 @import app
 @import './components/nav/_nav.sass'
 @import './components/Home/_home.sass'
 @import './components/About/_about.sass'
-@import './components/testComponent/_testComponent.sass'
 @import './components/Cart/_cart.sass'
 @import './components/Modal/_modal.sass'
 @import './components/Opacity/_opacity.sass'
@@ -78,3 +72,17 @@ $bg-attachment: fixed
     background: rgba(255,255,255,.5)
     div
         // transform: translate(50vw, 50vh)
+
+@media screen and (max-width: 520px)
+    .books-component
+        .book--container
+            padding: .5rem
+            grid-template-areas: "top-left top-right" "bottom bottom" !important
+            grid-template-columns: 160px 1fr
+        .description
+            grid-area: bottom !important
+        .title-author--container
+            grid-area: top-right !important
+        .cover-image
+            grid-area: top-left !important
+            width: 148px !important

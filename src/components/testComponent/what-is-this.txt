@@ -1,1 +1,0 @@
-here i am trying out displaying an grid of book thumbnails based on abookapart.com styling

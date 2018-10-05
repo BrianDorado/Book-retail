@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css?family=Josefin+Sans");
-@import url("https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed");
 @keyframes fadein {
   0% {
     opacity: 0; }
@@ -183,50 +182,6 @@ BODY.displayLoader {
     margin: 0;
     margin-bottom: 16px; }
 
-.test-component {
-  padding: 3rem 2rem;
-  background: #fff;
-  color: #997e11;
-  flex: auto;
-  font-family: 'Barlow Semi Condensed', sans-serif; }
-  .test-component .grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 1rem;
-    min-width: 730px;
-    max-width: 800px;
-    margin: 0 auto;
-    position: relative; }
-    .test-component .grid-container::before {
-      position: absolute;
-      top: -30px;
-      left: -16px;
-      content: "Browse Books";
-      font-family: 'Barlow Semi Condensed', sans-serif;
-      color: #997e11; }
-  .test-component .book-thumbnail {
-    height: 100px;
-    display: flex; }
-    .test-component .book-thumbnail img {
-      border: 1px solid #888;
-      height: 100%;
-      margin-right: 1rem;
-      cursor: pointer; }
-    .test-component .book-thumbnail .buy-button {
-      background: linear-gradient(#00cd00, green);
-      padding: .3rem .6rem;
-      color: #fff;
-      cursor: pointer;
-      font-size: .8rem;
-      display: inline-block; }
-    .test-component .book-thumbnail .book-title {
-      color: salmon;
-      font-family: Georgia, 'Times New Roman', Times, serif; }
-    .test-component .book-thumbnail .author-name {
-      color: #888;
-      font-family: inherit;
-      margin-bottom: .6rem; }
-
 .cart-component {
   min-height: calc(100vh - 121px);
   flex: auto;
@@ -357,24 +312,43 @@ BODY.displayLoader {
   opacity: 0;
   display: flex;
   flex-direction: column; }
-  .books-component SECTION {
+  .books-component .book--container {
     flex: auto;
     padding: 2rem;
     position: relative;
     font-family: "Josefin Sans", sans-serif;
     border: 1px solid gray;
-    background: rgba(0, 0, 0, 0.2); }
-    .books-component SECTION .author {
+    background: rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-template-rows: 20% 80%;
+    grid-template-areas: "left top-right" "left bottom-right"; }
+    .books-component .book--container .title-author--container {
+      grid-area: top-right; }
+    .books-component .book--container .author {
       font-family: "Open Sans", sans-serif;
       font-size: .8rem;
-      padding: .7rem 0; }
-    .books-component SECTION .description {
+      padding: .2rem 0 .7rem 0; }
+    .books-component .book--container .description {
+      grid-area: bottom-right;
       padding: .5rem 0;
       font-family: "Open Sans", sans-serif; }
-      .books-component SECTION .description .read-more {
-        font-size: .6rem;
+      .books-component .book--container .description .read-more {
+        font-size: .8rem;
         color: #54879d;
-        cursor: pointer; }
+        cursor: pointer;
+        font-weight: 800; }
+    .books-component .book--container .cover-image {
+      grid-area: left;
+      width: 180px;
+      border: 1px solid gray;
+      margin-bottom: 1rem; }
+    .books-component .book--container .title-author-image {
+      min-width: 200px;
+      overflow: hidden; }
+    .books-component .book--container .description-checkout_button {
+      padding-left: 1rem; }
 
 .button-component {
   font-family: "Barlow Semi Condensed", sans-serif;
@@ -500,3 +474,16 @@ BODY.displayLoader {
   width: 100%;
   z-index: 100;
   background: rgba(255, 255, 255, 0.5); }
+
+@media screen and (max-width: 520px) {
+  .books-component .book--container {
+    padding: .5rem;
+    grid-template-areas: "top-left top-right" "bottom bottom" !important;
+    grid-template-columns: 160px 1fr; }
+  .books-component .description {
+    grid-area: bottom !important; }
+  .books-component .title-author--container {
+    grid-area: top-right !important; }
+  .books-component .cover-image {
+    grid-area: top-left !important;
+    width: 148px !important; } }

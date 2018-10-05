@@ -1,8 +1,6 @@
 import React from "react";
 import axios from "axios";
 import Button from "../Button/Button";
-import marriageBand from "../../assets/img/marriage-band-1920-1080.jpg";
-import brideGroom from "../../assets/img/bride-groom1620-1080.jpg";
 import { SomeContext } from "../../context/testContext";
 import PropTypes from "prop-types";
 
@@ -31,6 +29,7 @@ export default class Books extends React.Component {
       .catch(console.error);
   };
   render() {
+    console.log("state: ", this.state);
     const books = this.state.books.map(book => (
       <BookContainer
         book={book}
@@ -59,40 +58,41 @@ class BookContainer extends React.Component {
   render() {
     let {
       checkoutFn,
-      book: { name, description, author, price }
+      book: { name, description, author, price, img }
     } = this.props;
     return (
       <section className="book--container" style={{ whiteSpace: "pre-line" }}>
-        <h3>{name}</h3>
-        <p className="author">{author}</p>
-        <hr />
-        <p className="description" ref={this.description}>
-          {this.state.showFullDescription ? description : description.split("\n")[0]}
+          <img className="cover-image" alt="cover image" src={require("./../../assets/img/" + img)} />
+          <div className="title-author--container">
+            <h3>{name}</h3>
+            <p className="author">{author}</p>
+            <SomeContext.Consumer>
+              {({ openModal }) => (
+                <Button
+                  text={"Add to Cart"}
+                  fn={() => {
+                    openModal({
+                      modalText: 'Add "' + name + '" to cart?',
+                      modalButtonText1: "OK",
+                      modalButtonText2: "Cancel",
+                      modalFn1: this.props.checkoutFn,
+                      modalFn2: () => {}
+                    });
+                  }}
+                />
+              )}
+            </SomeContext.Consumer>
+          </div>
+          <p className="description" ref={this.description}>
+            {this.state.showFullDescription ? description : description.split("\n")[0]}
+            <br />
+            {description.split("\n").length > 1 && (
+              <span className="read-more" onClick={e => this.expand(e.target)}>
+                view more
+              </span>
+            )}
+          </p>
           <br />
-          {description.split("\n").length > 1 && (
-            <span className="read-more" onClick={e => this.expand(e.target)}>
-              view more
-            </span>
-          )}
-        </p>
-        <hr />
-        <br />
-        <SomeContext.Consumer>
-          { ({openModal}) => (
-            <Button
-              text={"Add to Cart"}
-              fn={() => {
-                openModal({
-                  modalText: name, 
-                  modalButtonText1: "OK",
-                  modalButtonText2: "Cancel",
-                  modalFn1: this.props.checkoutFn,
-                  modalFn2: () => {}
-                });
-              }}
-            />
-          )}
-        </SomeContext.Consumer>
       </section>
     );
   }

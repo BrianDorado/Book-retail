@@ -16,7 +16,7 @@ require('dotenv').config()
 
 // ========== MIDDLEWARE ========== //
 
-app.use(express.static('build'))
+// app.use(express.static('build'))
 massive(process.env.CONNECTION_STRING).then(dbInstance => {
     app.set('db', dbInstance) 
 })
@@ -29,7 +29,6 @@ app.use(session({
      saveUninitialized: false,
      resave: false
 }));
-
 // ===== CUSTOM MIDDLEWARE ===== //
 app.use(middleware.checkForSession)
 
@@ -38,7 +37,11 @@ app.use(middleware.checkForSession)
 
 // === GET REQUESTS === //
 app.get('/api/products/books', products.getAllBooks)
-app.get('/api/getcart', products.getCart)
+
+app.get('/api/getcart', function(req,res,next){
+    console.log('get cart middleware');
+    return next();
+}, products.getCart)
 app.get('/api/testmailer', orders.testMail)
 // === PUT REQUESTS === //
 
