@@ -16,7 +16,7 @@ require('dotenv').config()
 
 // ========== MIDDLEWARE ========== //
 
-// app.use(express.static('build'))
+app.use(express.static('build'))
 massive(process.env.CONNECTION_STRING).then(dbInstance => {
     app.set('db', dbInstance) 
 })
