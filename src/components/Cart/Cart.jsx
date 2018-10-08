@@ -4,7 +4,7 @@ import Logo from "../../assets/img/blue-book.png";
 import Button from "../Button/Button";
 import bookList from "./productsList";
 
-const stripePublicKey = process.env.REACT_APP_STRIPE_LIVE_PK;
+const stripePublicKey = process.env.REACT_APP_STRIPE_TEST_PK;
 
 export default class Cart extends React.Component {
   constructor(props) {
@@ -109,7 +109,15 @@ export default class Cart extends React.Component {
 
   onClickPay = e => {
     e.preventDefault();
+    if (this.stripeForm)
     this.stripeForm.open();
+    else setTimeout( ()=>{
+      if (this.stripeForm)
+      this.stripeForm.open();
+      else setTimeout(()=>{
+        this.stripeForm.open();
+      },3000)
+    }, 3000)
   };
   handleFocusChange = event => {};
   handleChangeQty = event => {
@@ -130,6 +138,7 @@ export default class Cart extends React.Component {
     }, 0);
   };
   componentWillUnmount() {
+    if (this.stripeForm)
     this.stripeForm.close();
   }
   updateQty = (id, value) => {

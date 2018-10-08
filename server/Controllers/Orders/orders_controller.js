@@ -1,4 +1,5 @@
 // const bookList = require('../../bookList__old');
+const bookList = require('../Products/bookList');
 module.exports = {
   createNewOrder: (req, res) => {
     // not in use
@@ -15,7 +16,7 @@ module.exports = {
   stripePayment: (req, res, next) => {
     const { cart, token, amount, idempotencyKey } = req.body;
     console.log(' cart : ', cart)
-    const stripe = require("stripe")(process.env.STRIPE_LIVE_SK);
+    const stripe = require("stripe")(process.env.STRIPE_TEST_SK);
     stripe.charges.create(
       {
         amount,

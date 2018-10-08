@@ -32,6 +32,7 @@ export default class Books extends React.Component {
     console.log("state: ", this.state);
     const books = this.state.books.map(book => (
       <BookContainer
+        key={book.id}
         book={book}
         checkoutFn={() => {
           this.addItemToCart(Number(book.id));
