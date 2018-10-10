@@ -21,12 +21,15 @@ module.exports = [{
     price: 12,
     img: 'snowman_alt1.jpg',
     id: 2,
+    reviews: [
+      'https://www.newswire.com/news/geri-brinleys-newly-released-the-snowman-who-saw-christmas-is-a-20639311'
+    ],
     description: "How is it possible that a snowman could see anything, especially something or person as illusive as Santa Claus? And if one were to \"see\" Christmas, what would it look like? Is Christmas something you see or something you feel? Can a snowman feel anything? Can he be sad or happy? We all know that there is something magical about Christmas and perhaps that is the answer to the questions above. Read how this little snowman found his own answers and maybe you too will learn how to really \"see\" Christmas."
   },
   {
     name: "America in Peril: Ten Stages in the Destruction of a Promised Land",
     author: "Douglas E. Brinley",
-    price: 12,
+    price: 15,
     img: 'peril_alt.jpg',
     id: 3,
     description: "Four civilizations have occupied the Promised land of America over the centuries and three of them were eventually decimated by flood or civil war. The present inhabitants, the Gentiles, appear to be headed toward a similar fate as did the previous inhabitants. This book shows how each of the three previous civilizations went through ten stages from start to 'finish,' the Lamanites - the only survivors of the Lehite colonization.  The question of what stage are the Gentiles presently in and what does the future hold for them is detailed from both Book of Mormon and modern day prophets' comments."
@@ -34,7 +37,7 @@ module.exports = [{
   {
     name: "SINGLE in a Married Church",
     author: "Douglas E. Brinley and Anne Woelkers",
-    price: 12,
+    price: 15,
     img: 'single_alt.jpg',
     id: 4,
     description: "This book speaks to Latter-Day Saint singles, especially those over 30 as well as those who find themselves in relationships that are \"unequally yoked.\"  A marriage-centered culture leaves many singles wondering what their place is in the Church and how they fit into the Lord's plan.  This book explores the doctrinal concepts and practical issues that impact both singles and married couples whose relationships are not progressing toward a celestial goal."
@@ -42,7 +45,7 @@ module.exports = [{
   {
     name: "Marital \"Tune-up Kit\"",
     author: "Doug Brinley and Dave Brinley",
-    price: 12,
+    price: 15,
     img: 'tune-up_alt.jpg',
     id: 5,
     description: "Anyone who owns a car is familiar with the need for a periodic tuneup. This \"kit\" is designed with a similar goal in mind:  Assist couples in keeping their marriages functional and viable with a quick daily tune-up. Each day of the year contains a verse of scripture or a quote, usually from a Church leader, followed by an application of the principle or counsel. Filled with wit and wisdom, every couple can benefit from this powerful tune-up kit."

@@ -59,8 +59,17 @@ class BookContainer extends React.Component {
   render() {
     let {
       checkoutFn,
-      book: { name, description, author, price, img }
+      book: { name, description, author, price, img, reviews }
     } = this.props;
+    let reviewsJSX = [];
+    if (reviews){
+      reviewsJSX.push( <h3> Reviews </h3>)
+    for (let i=0; i<reviews.length; i++) {
+      const linkName = reviews[i].match(/(?<=www.).*(?=\.)/)[0]
+      reviewsJSX.push(
+        <a className="review-link" href={reviews[i]} target="_blank"> {linkName} review </a>
+      )
+    }}
     return (
       <section className="book--container" style={{ whiteSpace: "pre-line" }}>
           <img className="cover-image" alt="cover image" src={require("./../../assets/img/" + img)} />
@@ -92,6 +101,8 @@ class BookContainer extends React.Component {
                 view more
               </span>
             )}
+            <br/>
+            {reviewsJSX}
           </p>
           <br />
       </section>

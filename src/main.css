@@ -318,7 +318,6 @@ BODY.displayLoader {
     position: relative;
     font-family: "Josefin Sans", sans-serif;
     border: 1px solid gray;
-    background: rgba(0, 0, 0, 0.2);
     overflow: hidden;
     display: grid;
     grid-template-columns: 200px 1fr;
@@ -336,6 +335,10 @@ BODY.displayLoader {
       font-family: "Open Sans", sans-serif; }
       .books-component .book--container .description .read-more {
         font-size: .8rem;
+        color: #54879d;
+        cursor: pointer;
+        font-weight: 800; }
+      .books-component .book--container .description .review-link {
         color: #54879d;
         cursor: pointer;
         font-weight: 800; }
