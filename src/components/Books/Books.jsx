@@ -65,7 +65,7 @@ class BookContainer extends React.Component {
     if (reviews){
       reviewsJSX.push( <h3> Reviews </h3>)
       for (let i=0; i<reviews.length; i++) {
-        const linkName = 'Review';
+        const linkName = 'Newswire';
         // possibly incompatible regex: reviews[i].match(/(?<=www\.).*(?=\.)/)[0]
         reviewsJSX.push(
           <a className="review-link" href={reviews[i]} target="_blank"> {linkName} review </a>
