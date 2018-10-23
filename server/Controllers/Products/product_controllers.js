@@ -29,7 +29,6 @@ module.exports = {
   removeFromCart: (req, res) => {
     const { cart: { books: booksInCart } } = req.session.user;
     const { bookId } = req.params;
-    console.log( 'cart on sess: ', booksInCart);
     let index = booksInCart.findIndex( book => book.id === parseInt(bookId))
     if (index === -1){
       return res.status(500).send({error: 'book not found'})
@@ -38,8 +37,7 @@ module.exports = {
     res.status(200).send(req.session.user.cart);
   },
   getCart: (req, res) => {
-    console.log('cart on sessionN: ', req.session.user.cart)
-    if (req.session.user.cart) res.status(200).send({ cart: req.session.user.cart });
+    if (req.session.user.cart) res.status(200).set('Cache-Control', 'no-cache,no-store').send({ cart: req.session.user.cart });
     
     else res.status(401).send({ error: "no cart on session" });
   },

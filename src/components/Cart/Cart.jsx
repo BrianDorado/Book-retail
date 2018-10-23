@@ -21,10 +21,10 @@ export default class Cart extends React.Component {
     // configure stripe
     this.waitForStripeScript();
     // get cart
-    axios.get("/api/getcart").then(res =>
+    axios.get("/api/getcart").then(res =>{
       this.setState({
         cart: res.data.cart
-      })
+      })}
     );
   }
   waitForStripeScript = () => {
