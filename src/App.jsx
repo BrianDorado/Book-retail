@@ -9,6 +9,7 @@ import Button from './components/Button/Button';
 import { FadeLoader } from 'react-spinners';
 import './arrayFromPolyfill';
 import './arrayFindIndexPolyfill';
+import './arrayFindPolyfill';
 
 const modalStyles = {
   content : {
