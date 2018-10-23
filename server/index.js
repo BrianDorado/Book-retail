@@ -38,7 +38,7 @@ app.use(middleware.checkForSession)
 // === GET REQUESTS === //
 app.get('/api/products/books', products.getAllBooks)
 
-app.get('/api/getcart', function(req,res,next){
+app.post('/api/getcart', function(req,res,next){
     console.log('get cart middleware');
     return next();
 }, products.getCart)
