@@ -21,7 +21,7 @@ export default class Cart extends React.Component {
     // configure stripe
     this.waitForStripeScript();
     // get cart
-    axios.post("/api/getcart").then(res =>{
+    axios.post("/api/getcart", {}).then(res =>{
       this.setState({
         cart: res.data.cart
       })}
