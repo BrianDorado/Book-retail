@@ -7,6 +7,7 @@ import DropdownMenu from "./components/DropdownMenu/dropdownMenu";
 import Modal from 'react-modal';
 import Button from './components/Button/Button';
 import { FadeLoader } from 'react-spinners';
+import './arrayFromPolyfill';
 
 const modalStyles = {
   content : {
