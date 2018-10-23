@@ -64,11 +64,12 @@ class BookContainer extends React.Component {
     let reviewsJSX = [];
     if (reviews){
       reviewsJSX.push( <h3> Reviews </h3>)
-    for (let i=0; i<reviews.length; i++) {
-      const linkName = reviews[i].match(/(?<=www.).*(?=\.)/)[0]
-      reviewsJSX.push(
-        <a className="review-link" href={reviews[i]} target="_blank"> {linkName} review </a>
-      )
+      for (let i=0; i<reviews.length; i++) {
+        const linkName = 'Review';
+        // possibly incompatible regex: reviews[i].match(/(?<=www\.).*(?=\.)/)[0]
+        reviewsJSX.push(
+          <a className="review-link" href={reviews[i]} target="_blank"> {linkName} review </a>
+        )
     }}
     return (
       <section className="book--container" style={{ whiteSpace: "pre-line" }}>
