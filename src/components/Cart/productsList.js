@@ -21,18 +21,18 @@ export default [
       id: 3,
       name: "America in Peril: Ten Stages in the Destruction of a Promised Land",
       author: "Douglas E. Brinley",
-      price: 12
+      price: 15
     },
     {
       id: 4,
       name: "SINGLE in a Married Church",
       author: "Douglas E. Brinley and Anne Woelkers",
-      price: 12
+      price: 15
     },
     {
       id: 5,
       name: 'Marital "Tune-up Kit"',
       author: "Doug Brinley and Dave Brinley",
-      price: 12
+      price: 15
     }
   ]

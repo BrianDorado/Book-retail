@@ -128,7 +128,7 @@ function sendEmail(res, customerEmail, orderId, customerInfo) { // customerInfo.
   transporter.sendMail(message, error=>{if(error)console.log('__mailer_error__,',error)})
   let invoice = {
       from: 'brinleybooks@gmx.com',
-      to: [ process.env.invoiceEmail1, process.env.invoiceEmail2 ], // invoiceEmail1
+      to:[process.env.invoiceEmail1, process.env.invoiceEmail2], // invoiceEmail1
       subject: 'BRINLEY BOOKS ORDER MESSAGE',
       html: `
       <div style="padding: 12px; background: dodgerblue; color: white; lineHeight:20px;">
